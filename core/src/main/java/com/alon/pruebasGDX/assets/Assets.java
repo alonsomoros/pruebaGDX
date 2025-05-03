@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Assets {
+    public static Texture logo;
+
     public static Texture backgroundTexture;
     public static Sprite backgroundSprite;
 
@@ -24,6 +26,8 @@ public class Assets {
     }
 
     public static void load() {
+        logo = new Texture(Gdx.files.internal("background/tienda.png"));
+
         backgroundTexture = loadTexture("background/tienda.png");
         backgroundSprite = new Sprite(backgroundTexture);
 
@@ -35,4 +39,9 @@ public class Assets {
         fireballSound2 = Gdx.audio.newSound(Gdx.files.internal("sounds/fireballSound2.mp3"));
         levelUpSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelUpSound.mp3"));
     }
+
+    public static void playSound (Sound sound) {
+        if (Settings.soundEnabled) sound.play(1);
+    }
+
 }
