@@ -1,4 +1,4 @@
-package com.alon.pruebasGDX;
+package com.alon.pruebasGDX.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
