@@ -1,13 +1,19 @@
 package com.alon.pruebasGDX;
 
+import com.alon.pruebasGDX.assets.Assets;
+import com.alon.pruebasGDX.screens.MainMenuScreen;
+import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main extends Game {
+public class Prueba1 extends Game {
 
-    private static final String TITLE = "pruebasGDX";
-    private static final String VERSION = "v.0.0.0.0";
+    public static final String TITLE = "pruebasGDX";
+    public static final String VERSION = "v.0.0.0.0";
+
+    public final int V_WIDTH = 800;
+    public final int V_HEIGHT = 500;
 
     public SpriteBatch batcher;
 
