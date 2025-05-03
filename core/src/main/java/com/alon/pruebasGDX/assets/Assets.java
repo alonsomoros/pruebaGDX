@@ -1,5 +1,6 @@
-package com.alon.pruebasGDX;
+package com.alon.pruebasGDX.assets;
 
+import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
