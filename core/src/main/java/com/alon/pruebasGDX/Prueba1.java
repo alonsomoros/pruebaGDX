@@ -4,6 +4,7 @@ import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.screens.MainMenuScreen;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -19,10 +20,23 @@ public class Prueba1 extends Game {
 
     @Override
     public void create () {
+        // Inicializar componentes básicos
         batcher = new SpriteBatch();
+
+        // Cargar configuraciones
         Settings.load();
+
+        // Iniciar carga de recursos
         Assets.load();
+
+        // Cargar recursos
+        Assets.finishLoading();
         setScreen(new MainMenuScreen(this));
+
+        // Se puede hacer una pantalla de carga si hay muchos assets de la siguiente manera:
+        // if (Assets.assetManager.update()) {
+        //     setScreen(new MainMenuScreen(this));
+        // }
     }
 
     @Override
@@ -48,5 +62,6 @@ public class Prueba1 extends Game {
     @Override
     public void dispose () {
         super.dispose();
+        Assets.dispose();
     }
 }
