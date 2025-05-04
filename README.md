@@ -1,4 +1,4 @@
-# PruebasGDX_Portatil
+# PruebasGDX_Alon
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
