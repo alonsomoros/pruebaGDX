@@ -1,0 +1,12 @@
+fireball.png
+size:256,64
+repeat:none
+fireball
+index:3
+bounds:2,2,55,55
+fireball
+index:2
+bounds:59,2,55,55
+fireball
+index:1
+bounds:116,2,55,55
