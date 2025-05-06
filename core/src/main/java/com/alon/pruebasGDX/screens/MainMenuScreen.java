@@ -4,7 +4,6 @@ import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
@@ -15,11 +14,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen extends BaseScreen {
     private final Prueba1 game;
@@ -32,7 +29,7 @@ public class MainMenuScreen extends BaseScreen {
     public MainMenuScreen(Prueba1 game) {
         super(game);
         this.game = game;
-        this.music = Assets.assetManager.get(Assets.MUSIC);
+        this.music = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC);
     }
 
     @Override
@@ -57,18 +54,20 @@ public class MainMenuScreen extends BaseScreen {
 
     public void draw() {
         GL20 gl = Gdx.gl;
-        gl.glClearColor(0, 0, 0, 1);
+        gl.glClearColor(1, 1, 1, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.batcher.setProjectionMatrix(camera.combined);
 
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
+        // Dibuja el fondo
         game.batcher.draw(Assets.getTexture(Assets.BACKGROUND), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
 
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
         game.batcher.begin();
+        // Dibuja el titulo
         game.batcher.draw(titleSprite, 250, 369, 300, 80);
         stateTime += Gdx.graphics.getDeltaTime();
 //        drawFireballAnimation(stateTime);
@@ -80,7 +79,6 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void show() {
-        music = Assets.getMusic(Assets.MUSIC);
         music.setLooping(true);
         music.setVolume(0.05f);
         music.play();
@@ -88,6 +86,7 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
+        super.render(delta);
         update();
         draw();
     }
@@ -100,7 +99,6 @@ public class MainMenuScreen extends BaseScreen {
     @Override
     public void pause() {
         Settings.save();
-        music = Assets.getMusic(Assets.MUSIC);
         if (music.isPlaying()) {
             music.pause();
         }
@@ -110,7 +108,6 @@ public class MainMenuScreen extends BaseScreen {
     @Override
     public void resume() {
         Settings.load();
-        music = Assets.getMusic(Assets.MUSIC);
         if (Settings.soundEnabled) {
             music.play();
         }
@@ -118,7 +115,6 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void hide() {
-        music = Assets.getMusic(Assets.MUSIC);
         if (music.isPlaying()) {
             music.stop();
         }
@@ -126,6 +122,9 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+        super.dispose();
+        music.stop();
+        music.dispose();
         stage.dispose();
         fireballAnimation.getKeyFrame(0).getTexture().dispose();
         fireballSprite.getTexture().dispose();
@@ -161,6 +160,7 @@ public class MainMenuScreen extends BaseScreen {
                 Sound level_up_sound = Assets.assetManager.get(Assets.LEVEL_UP_SOUND);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Nueva partida", "Click en Nueva partida");
+                game.setScreen(new GameScreen(game));
             }
         });
     }
