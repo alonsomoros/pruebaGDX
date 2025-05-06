@@ -18,7 +18,9 @@ public class Assets {
         MUSIC = "music/DanceOf1000Suns.wav",
         FIRBALL_SOUND_1 = "sounds/fireballSound1.mp3",
         FIRBALL_SOUND_2 = "sounds/fireballSound2.mp3",
-        LEVEL_UP_SOUND = "sounds/levelUpSound2.mp3";
+        LEVEL_UP_SOUND = "sounds/levelUpSound2.mp3",
+        BUTTON_LABEL_JSON = "buttons/uiskin_label/uiskin_label.json",
+        FIREBALL_ATLAS = "sprites/fireball/fireball.atlas";
 
 
     //public static Texture logo;
