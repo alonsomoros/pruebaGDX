@@ -21,28 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen extends BaseScreen {
-    Prueba1 game;
-//    Rectangle soundBounds;
-//    Rectangle playBounds;
-//    Rectangle highscoresBounds;
-//    Rectangle helpBounds;
-//    Vector3 touchPoint;
-    private Texture background;
-    private Music music;
+    private final Prueba1 game;
 
-    private TextureAtlas fireballAtlas;
     private Animation<TextureAtlas.AtlasRegion> fireballAnimation;
     private Sprite fireballSprite;
 
     public MainMenuScreen (Prueba1 game) {
         super(game);
         this.game = game;
-
-//        soundBounds = new Rectangle(0, 0, 64, 64);
-//        playBounds = new Rectangle(160 - 150, 200 + 18, 300, 36);
-//        highscoresBounds = new Rectangle(160 - 150, 200 - 18, 300, 36);
-//        helpBounds = new Rectangle(160 - 150, 200 - 18 - 36, 300, 36);
-//        touchPoint = new Vector3();
     }
 
     @Override
@@ -50,29 +36,8 @@ public class MainMenuScreen extends BaseScreen {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        Skin skin = new Skin(Gdx.files.internal("buttons/uiskin_label/uiskin_label.json"));
         createFireAnimation();
-
-        Button buttonStart = new Button(skin);
-        buttonStart.setSize(500, 500); // Cambiar tamaño
-        mainTable.add(buttonStart).center().padBottom(200).height(40).width(170); // Centrar y añadir margen superior
-
-        // Añade un listener que intercambie el color al entrar/salir y gestione el clic
-        buttonStart.addListener(new ClickListener() {
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
-            }
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
-            }
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Assets.playSound(Assets.getSound(Assets.LEVEL_UP_SOUND));
-                Gdx.app.log("Nueva partida", "Clic en Nueva partida");
-            }
-        });
+        createStartButton(mainTable);
 
         stage.addActor(mainTable);
 
@@ -80,20 +45,8 @@ public class MainMenuScreen extends BaseScreen {
 
     }
 
-    private void createFireAnimation() {
-        fireballAtlas = new TextureAtlas(Gdx.files.internal("sprites/fireball/fireball.atlas"));
-        fireballAnimation = new Animation<TextureAtlas.AtlasRegion>(0.10f, fireballAtlas.findRegions("fireball"));
-        fireballAnimation.setPlayMode(Animation.PlayMode.LOOP);
-
-        fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));
-        fireballSprite.scale(1f);
-        fireballSprite.setPosition(350, 233);
-    }
-
     public void update () {
-        if (Gdx.input.justTouched()) {
 
-        }
     }
 
     float stateTime = 0f;
@@ -104,11 +57,9 @@ public class MainMenuScreen extends BaseScreen {
         camera.update();
         game.batcher.setProjectionMatrix(camera.combined);
 
-
-
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
-        background = Assets.getTexture(Assets.BACKGROUND);
+        Texture background = Assets.getTexture(Assets.BACKGROUND);
         game.batcher.draw(background,0,0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
 
@@ -132,7 +83,7 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void show() {
-        music = Assets.getMusic(Assets.MUSIC);
+        Music music = Assets.getMusic(Assets.MUSIC);
         music.setLooping(true);
         music.setVolume(0.05f);
         music.play();
@@ -146,5 +97,58 @@ public class MainMenuScreen extends BaseScreen {
     @Override
     public void pause () {
         Settings.save();
+        Music music = Assets.getMusic(Assets.MUSIC);
+        if (music.isPlaying()) {
+            music.pause();
+        }
+    }
+
+    @Override
+    public void hide () {
+        Music music = Assets.getMusic(Assets.MUSIC);
+        if (music.isPlaying()) {
+            music.stop();
+        }
+    }
+
+    @Override
+    public void dispose () {
+        stage.dispose();
+        fireballAnimation.getKeyFrame(0).getTexture().dispose();
+        fireballSprite.getTexture().dispose();
+    }
+
+    private void createStartButton(Table mainTable) {
+        Skin skin = new Skin(Gdx.files.internal(Assets.BUTTON_LABEL_JSON));
+        Button buttonStart = new Button(skin);
+        mainTable.add(buttonStart).center().padBottom(200).height(40).width(220); // Centrar y añadir margen superior
+
+        // Añade un listener que intercambie el color al entrar/salir y gestione el clic
+        buttonStart.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
+            }
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
+            }
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Assets.playSound(Assets.getSound(Assets.LEVEL_UP_SOUND));
+                Gdx.app.log("Nueva partida", "Clic en Nueva partida");
+            }
+        });
+    }
+
+    private void createFireAnimation() {
+        TextureAtlas fireballAtlas = new TextureAtlas(Gdx.files.internal(Assets.FIREBALL_ATLAS));
+
+        fireballAnimation = new Animation<>(0.10f, fireballAtlas.findRegions("fireball"));
+        fireballAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));
+        fireballSprite.scale(1f);
+        fireballSprite.setPosition(350, 233);
     }
 }
