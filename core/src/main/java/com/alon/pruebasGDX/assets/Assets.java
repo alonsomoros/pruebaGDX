@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Assets {
 
@@ -20,43 +21,28 @@ public class Assets {
         FIRBALL_SOUND_2 = "sounds/fireballSound2.mp3",
         LEVEL_UP_SOUND = "sounds/levelUpSound2.mp3",
         BUTTON_LABEL_JSON = "buttons/uiskin_label/uiskin_label.json",
-        FIREBALL_ATLAS = "sprites/fireball/fireball.atlas";
+        FIREBALL_ATLAS = "sprites/fireball/fireball.atlas",
+        TITLE_LABEL = "icons/logoWhite.png";
 
-
-    //public static Texture logo;
-    //public static Texture backgroundTexture;
-    //public static Texture figureTexture;
-
-    //public static Music mainMusic;
-
-    //public static Sound fireballSound1;
-    //public static Sound fireballSound2;
-    //public static Sound levelUpSound;
-
-    public static Texture loadTexture (String file) {
+    public static Texture loadTexture(String file) {
         return new Texture(Gdx.files.internal(file));
     }
 
     public static void load() {
 
-        // logo = new Texture(Gdx.files.internal("icons/LogoSeaOfStars_Black.png"));
         assetManager.load(LOGO, Texture.class);
-
-        // backgroundTexture = loadTexture("background/tienda.png");
+        assetManager.load(TITLE_LABEL, Texture.class);
         assetManager.load(BACKGROUND, Texture.class);
-
-        // figureTexture = loadTexture("sprites/mago/mago_lvl3.png");
         assetManager.load(FIGURA_MAGO_3, Texture.class);
-
-        // mainMusic = Gdx.audio.newMusic(Gdx.files.internal("music/DanceOf1000Suns.wav"));
         assetManager.load(MUSIC, Music.class);
-        // fireballSound1 = Gdx.audio.newSound(Gdx.files.internal("sounds/fireballSound1.mp3"));
         assetManager.load(FIRBALL_SOUND_1, Sound.class);
-        // fireballSound2 = Gdx.audio.newSound(Gdx.files.internal("sounds/fireballSound2.mp3"));
         assetManager.load(FIRBALL_SOUND_2, Sound.class);
-        // levelUpSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelUpSound.mp3"));
         assetManager.load(LEVEL_UP_SOUND, Sound.class);
+        assetManager.load(BUTTON_LABEL_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
+        assetManager.load(FIREBALL_ATLAS, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
+
         // … más assets
+        assetManager.finishLoading();
     }
 
     public static void finishLoading() {
@@ -80,7 +66,7 @@ public class Assets {
         assetManager.dispose();
     }
 
-    public static void playSound (Sound sound) {
+    public static void playSound(Sound sound) {
         if (Settings.soundEnabled) sound.play(1);
     }
 
