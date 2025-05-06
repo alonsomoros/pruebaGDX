@@ -7,6 +7,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -26,6 +30,10 @@ public class MainMenuScreen extends BaseScreen {
     private Texture background;
     private Music music;
 
+    private TextureAtlas fireballAtlas;
+    private Animation<TextureAtlas.AtlasRegion> fireballAnimation;
+    private Sprite fireballSprite;
+
     public MainMenuScreen (Prueba1 game) {
         super(game);
         this.game = game;
@@ -43,6 +51,7 @@ public class MainMenuScreen extends BaseScreen {
         mainTable.setFillParent(true);
 
         Skin skin = new Skin(Gdx.files.internal("buttons/uiskin_label/uiskin_label.json"));
+        createFireAnimation();
 
         Button buttonStart = new Button(skin);
         buttonStart.setSize(500, 500); // Cambiar tamaño
@@ -65,54 +74,39 @@ public class MainMenuScreen extends BaseScreen {
             }
         });
 
-
         stage.addActor(mainTable);
-
-//        Button b = new Button(skin);
-//        mainTable.add(b).center().width(300).height(100);
 
         Gdx.input.setInputProcessor(stage);
 
     }
 
+    private void createFireAnimation() {
+        fireballAtlas = new TextureAtlas(Gdx.files.internal("sprites/fireball/fireball.atlas"));
+        fireballAnimation = new Animation<TextureAtlas.AtlasRegion>(0.10f, fireballAtlas.findRegions("fireball"));
+        fireballAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));
+        fireballSprite.scale(1f);
+        fireballSprite.setPosition(350, 233);
+    }
+
     public void update () {
         if (Gdx.input.justTouched()) {
-//            guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
-//            if (playBounds.contains(touchPoint.x, touchPoint.y)) {
-//                Assets.playSound(Assets.clickSound);
-//                game.setScreen(new GameScreen(game));
-//                return;
-//            }
-//            if (highscoresBounds.contains(touchPoint.x, touchPoint.y)) {
-//                Assets.playSound(Assets.clickSound);
-//                game.setScreen(new HighscoresScreen(game));
-//                return;
-//            }
-//            if (helpBounds.contains(touchPoint.x, touchPoint.y)) {
-//                Assets.playSound(Assets.clickSound);
-//                game.setScreen(new HelpScreen(game));
-//                return;
-//            }
-//            if (soundBounds.contains(touchPoint.x, touchPoint.y)) {
-//                Assets.playSound(Assets.clickSound);
-//                Settings.soundEnabled = !Settings.soundEnabled;
-//                if (Settings.soundEnabled)
-//                    Assets.mainMusic.play();
-//                else
-//                    Assets.mainMusic.pause();
-//            }
         }
     }
 
+    float stateTime = 0f;
     public void draw () {
         GL20 gl = Gdx.gl;
-        gl.glClearColor(1, 0, 0, 1);
+        gl.glClearColor(0, 0, 0, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.batcher.setProjectionMatrix(camera.combined);
 
-        game.batcher.disableBlending();
+
+
+        game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
         background = Assets.getTexture(Assets.BACKGROUND);
         game.batcher.draw(background,0,0, game.V_WIDTH, game.V_HEIGHT);
@@ -120,10 +114,20 @@ public class MainMenuScreen extends BaseScreen {
 
         game.batcher.enableBlending();
         game.batcher.begin();
+
+        stateTime += Gdx.graphics.getDeltaTime();
+        drawFireballAnimation(stateTime);
+
         game.batcher.end();
 
-        stage.draw();
         stage.act();
+        stage.draw();
+    }
+
+    private void drawFireballAnimation(float stateTime){
+        TextureRegion fireballRegion = fireballAnimation.getKeyFrame(stateTime, true);
+        fireballSprite.setRegion(fireballRegion);
+        fireballSprite.draw(game.batcher);
     }
 
     @Override
