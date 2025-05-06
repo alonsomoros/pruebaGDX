@@ -42,33 +42,30 @@ public class MainMenuScreen extends BaseScreen {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("buttons/uiskin_label/uiskin_label.json"));
 
-        final Label link = new Label("< Nueva Partida >", skin);
-        link.setColor(Color.WHITE);
-        link.setFontScale(1.5f);
-        link.setPosition(333, 250);
+        Button buttonStart = new Button(skin);
+        buttonStart.setSize(500, 500); // Cambiar tamaño
+        mainTable.add(buttonStart).center().padBottom(200).height(40).width(170); // Centrar y añadir margen superior
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
-        link.addListener(new ClickListener() {
+        buttonStart.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                link.setColor(Color.CYAN);  // color on hover
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
             }
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                link.setColor(Color.WHITE); // vuelve al color normal
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
             }
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.getSound(Assets.LEVEL_UP_SOUND));
-//                Gdx.app.exit();
+                Gdx.app.log("Nueva partida", "Clic en Nueva partida");
             }
         });
 
-        stage.addActor(link);
+
         stage.addActor(mainTable);
 
 //        Button b = new Button(skin);
