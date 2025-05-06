@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Assets {
 
@@ -15,10 +14,12 @@ public class Assets {
     public static final String
         LOGO = "sprites/arquero/arquero_lvl3.png",
         BACKGROUND = "background/tienda.png",
+        GAME_BOARD = "background/tablero.png",
         FIGURA_MAGO_3 = "sprites/mago/mago_lvl3.png",
-        MUSIC = "music/DanceOf1000Suns.wav",
-        FIRBALL_SOUND_1 = "sounds/fireballSound1.mp3",
-        FIRBALL_SOUND_2 = "sounds/fireballSound2.mp3",
+        MAIN_MENU_MUSIC = "music/DanceOf1000Suns.wav",
+        GAME_MUSIC = "music/TheFrozenPeak.wav",
+        FIREBALL_SOUND_1 = "sounds/fireballSound1.mp3",
+        FIREBALL_SOUND_2 = "sounds/fireballSound2.mp3",
         LEVEL_UP_SOUND = "sounds/levelUpSound2.mp3",
         BUTTON_LABEL_JSON = "buttons/uiskin_label/uiskin_label.json",
         FIREBALL_ATLAS = "sprites/fireball/fireball.atlas",
@@ -33,10 +34,12 @@ public class Assets {
         assetManager.load(LOGO, Texture.class);
         assetManager.load(TITLE_LABEL, Texture.class);
         assetManager.load(BACKGROUND, Texture.class);
+        assetManager.load(GAME_BOARD, Texture.class);
         assetManager.load(FIGURA_MAGO_3, Texture.class);
-        assetManager.load(MUSIC, Music.class);
-        assetManager.load(FIRBALL_SOUND_1, Sound.class);
-        assetManager.load(FIRBALL_SOUND_2, Sound.class);
+        assetManager.load(MAIN_MENU_MUSIC, Music.class);
+        assetManager.load(GAME_MUSIC, Music.class);
+        assetManager.load(FIREBALL_SOUND_1, Sound.class);
+        assetManager.load(FIREBALL_SOUND_2, Sound.class);
         assetManager.load(LEVEL_UP_SOUND, Sound.class);
         assetManager.load(BUTTON_LABEL_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetManager.load(FIREBALL_ATLAS, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
