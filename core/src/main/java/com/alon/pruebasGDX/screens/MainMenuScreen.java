@@ -4,13 +4,12 @@ import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -21,15 +20,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class MainMenuScreen extends BaseScreen {
     private final Prueba1 game;
 
-    private Music music;
+    private final Music mainMenuMusic;
     private Sprite titleSprite;
-    private Animation<TextureAtlas.AtlasRegion> fireballAnimation;
-    private Sprite fireballSprite;
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
         this.game = game;
-        this.music = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC);
+        this.mainMenuMusic = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC);
     }
 
     @Override
@@ -38,24 +35,26 @@ public class MainMenuScreen extends BaseScreen {
         mainTable.setFillParent(true);
 
         createTitle(mainTable);
-        createFireAnimation();
         createStartWheelsButton(mainTable);
+        mainTable.row();
         createStartMiniGameButton(mainTable);
 
         stage.addActor(mainTable);
 
-        Gdx.input.setInputProcessor(stage);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage);    // Primero el stage (para los botones)
+        multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     public void update() {
-        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
+
     }
 
     float stateTime = 0f;
 
-    public void draw() {
+    public void draw(float delta) {
         GL20 gl = Gdx.gl;
         gl.glClearColor(0, 0, 0, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -73,25 +72,26 @@ public class MainMenuScreen extends BaseScreen {
         // Dibuja el titulo
         game.batcher.draw(titleSprite, 250, 369, 300, 80);
         stateTime += Gdx.graphics.getDeltaTime();
-//        drawFireballAnimation(stateTime);
         game.batcher.end();
 
         stage.act();
         stage.draw();
     }
 
+    // Métodos de Screen
+
     @Override
     public void show() {
-        music.setLooping(true);
-        music.setVolume(0.05f);
-        music.play();
+        mainMenuMusic.setLooping(true);
+        mainMenuMusic.setVolume(0.05f);
+        mainMenuMusic.play();
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         update();
-        draw();
+        draw(delta);
     }
 
     @Override
@@ -102,8 +102,8 @@ public class MainMenuScreen extends BaseScreen {
     @Override
     public void pause() {
         Settings.save();
-        if (music.isPlaying()) {
-            music.pause();
+        if (mainMenuMusic.isPlaying()) {
+            mainMenuMusic.pause();
         }
         Gdx.app.log("Pausa", "Juego pausado");
     }
@@ -112,28 +112,42 @@ public class MainMenuScreen extends BaseScreen {
     public void resume() {
         Settings.load();
         if (Settings.soundEnabled) {
-            music.play();
+            mainMenuMusic.play();
         }
     }
 
     @Override
     public void hide() {
-        if (music.isPlaying()) {
-            music.stop();
+        if (mainMenuMusic.isPlaying()) {
+            mainMenuMusic.stop();
         }
     }
 
     @Override
     public void dispose() {
         super.dispose();
-        music.stop();
-        music.dispose();
+        mainMenuMusic.stop();
+        mainMenuMusic.dispose();
         stage.dispose();
-        fireballAnimation.getKeyFrame(0).getTexture().dispose();
-        fireballSprite.getTexture().dispose();
         titleSprite.getTexture().dispose();
     }
 
+    // Métodos de InputProcessor
+
+    @Override
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case Input.Keys.ESCAPE:
+                Gdx.app.exit();
+                return true;
+            case Input.Keys.ENTER:
+                Gdx.app.log("Enter", "Enter key pressed");
+                return true;
+        }
+        return false;
+    }
+
+    // Métodos de creación de UI
 
     private void createTitle(Table mainTable) {
         Assets.assetManager.get(Assets.LOGO);
@@ -144,7 +158,7 @@ public class MainMenuScreen extends BaseScreen {
     private void createStartWheelsButton(Table mainTable) {
         Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_LABEL_JSON);
         Button buttonStart = new Button(skinButtonLabel);
-        mainTable.add(buttonStart).center().padBottom(100).height(40).width(220); // Centrar y añadir margen superior
+        mainTable.add(buttonStart).center().height(70).width(220).padBottom(-10); // Centrar y añadir margen superior
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
         buttonStart.addListener(new ClickListener() {
@@ -171,7 +185,7 @@ public class MainMenuScreen extends BaseScreen {
     private void createStartMiniGameButton(Table mainTable) {
         Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON);
         Button buttonMinigame = new Button(skinButtonLabel);
-        mainTable.add(buttonMinigame).center().padBottom(100).height(40).width(200); // Centrar y añadir margen superior
+        mainTable.add(buttonMinigame).center().height(70).width(290).padBottom(10).padLeft(15); // Centrar y añadir margen superior
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
         buttonMinigame.addListener(new ClickListener() {
@@ -194,22 +208,5 @@ public class MainMenuScreen extends BaseScreen {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
-    }
-
-    private void createFireAnimation() {
-        TextureAtlas fireballAtlas = new TextureAtlas(Gdx.files.internal(Assets.FIREBALL_ATLAS));
-
-        fireballAnimation = new Animation<TextureAtlas.AtlasRegion>(0.10f, fireballAtlas.findRegions("fireball"));
-        fireballAnimation.setPlayMode(Animation.PlayMode.LOOP);
-
-        fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));
-        fireballSprite.scale(1f);
-        fireballSprite.setPosition(350, 233);
-    }
-
-    private void drawFireballAnimation(float stateTime) {
-        TextureRegion fireballRegion = fireballAnimation.getKeyFrame(stateTime, true);
-        fireballSprite.setRegion(fireballRegion);
-        fireballSprite.draw(game.batcher);
     }
 }
