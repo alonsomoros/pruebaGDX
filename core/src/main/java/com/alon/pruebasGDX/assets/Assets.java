@@ -22,6 +22,7 @@ public class Assets {
         FIREBALL_SOUND_2 = "sounds/fireballSound2.mp3",
         LEVEL_UP_SOUND = "sounds/levelUpSound2.mp3",
         BUTTON_LABEL_JSON = "buttons/uiskin_label/uiskin_label.json",
+        BUTTON_MINIGAME_JSON = "buttons/uiskin_minigame/uiskin_minigame.json",
         FIREBALL_ATLAS = "sprites/fireball/fireball.atlas",
         TITLE_LABEL = "icons/logoWhite.png";
 
@@ -42,6 +43,7 @@ public class Assets {
         assetManager.load(FIREBALL_SOUND_2, Sound.class);
         assetManager.load(LEVEL_UP_SOUND, Sound.class);
         assetManager.load(BUTTON_LABEL_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
+        assetManager.load(BUTTON_MINIGAME_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetManager.load(FIREBALL_ATLAS, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
 
         // … más assets
