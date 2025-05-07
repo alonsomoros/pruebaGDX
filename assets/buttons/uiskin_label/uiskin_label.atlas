@@ -1,50 +1,22 @@
 
 uiskin_label.png
-size: 128, 128
+size: 512, 512
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-NuevaPartida_Button_Down
-  rotate: false
-  xy: 1, 73
-  size: 102, 22
-  split: 9, 14, 0, 5
-  pad: 12, 17, 8, 5
-  orig: 102, 22
-  offset: 0, 0
-  index: -1
-NuevaPartida_Button_Up
-  rotate: false
-  xy: 1, 97
-  size: 102, 22
-  split: 9, 14, 4, 5
-  pad: 12, 17, 6, 7
-  orig: 102, 22
-  offset: 0, 0
-  index: -1
 NuevaPartida_Label_Down
   rotate: false
-  xy: 1, 25
-  size: 102, 22
-  split: 11, 16, 5, 7
-  pad: 12, 17, 6, 7
-  orig: 102, 22
+  xy: 1, 221
+  size: 416, 96
+  split: 23, 22, 28, 17
+  orig: 416, 96
   offset: 0, 0
   index: -1
 NuevaPartida_Label_Pressed
   rotate: false
-  xy: 1, 1
-  size: 102, 22
-  split: 10, 15, 4, 5
-  pad: 11, 16, 5, 6
-  orig: 102, 22
-  offset: 0, 0
-  index: -1
-NuevaPartida_Label_Up
-  rotate: false
-  xy: 1, 49
-  size: 102, 22
-  split: 12, 17, 6, 7
-  orig: 102, 22
+  xy: 1, 319
+  size: 416, 96
+  split: 19, 18, 24, 13
+  orig: 416, 96
   offset: 0, 0
   index: -1
