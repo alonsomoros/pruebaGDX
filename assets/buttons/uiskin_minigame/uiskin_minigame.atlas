@@ -1,0 +1,22 @@
+
+uiskin_minigame.png
+size: 128, 128
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Minigame_Label_Pressed
+  rotate: false
+  xy: 1, 79
+  size: 102, 22
+  split: 13, 39, 5, 1
+  orig: 102, 22
+  offset: 0, 0
+  index: -1
+Minigame_Label_Up
+  rotate: false
+  xy: 1, 55
+  size: 102, 22
+  split: 14, 40, 6, 2
+  orig: 102, 22
+  offset: 0, 0
+  index: -1
