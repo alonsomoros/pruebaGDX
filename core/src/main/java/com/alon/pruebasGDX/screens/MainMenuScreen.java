@@ -39,7 +39,8 @@ public class MainMenuScreen extends BaseScreen {
 
         createTitle(mainTable);
         createFireAnimation();
-        createStartButton(mainTable);
+        createStartWheelsButton(mainTable);
+        createStartMiniGameButton(mainTable);
 
         stage.addActor(mainTable);
 
@@ -47,14 +48,16 @@ public class MainMenuScreen extends BaseScreen {
     }
 
     public void update() {
-
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
     }
 
     float stateTime = 0f;
 
     public void draw() {
         GL20 gl = Gdx.gl;
-        gl.glClearColor(1, 1, 1, 1);
+        gl.glClearColor(0, 0, 0, 1);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.batcher.setProjectionMatrix(camera.combined);
@@ -138,7 +141,7 @@ public class MainMenuScreen extends BaseScreen {
         titleSprite = new Sprite(title_label);
     }
 
-    private void createStartButton(Table mainTable) {
+    private void createStartWheelsButton(Table mainTable) {
         Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_LABEL_JSON);
         Button buttonStart = new Button(skinButtonLabel);
         mainTable.add(buttonStart).center().padBottom(100).height(40).width(220); // Centrar y añadir margen superior
@@ -165,10 +168,38 @@ public class MainMenuScreen extends BaseScreen {
         });
     }
 
+    private void createStartMiniGameButton(Table mainTable) {
+        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON);
+        Button buttonMinigame = new Button(skinButtonLabel);
+        mainTable.add(buttonMinigame).center().padBottom(100).height(40).width(200); // Centrar y añadir margen superior
+
+        // Añade un listener que intercambie el color al entrar/salir y gestione el clic
+        buttonMinigame.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
+            }
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Sound level_up_sound = Assets.assetManager.get(Assets.LEVEL_UP_SOUND);
+                Assets.playSound(level_up_sound);
+                Gdx.app.log("Minigame", "Click en Minigame");
+                game.setScreen(new GameScreen(game));
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+    }
+
     private void createFireAnimation() {
         TextureAtlas fireballAtlas = new TextureAtlas(Gdx.files.internal(Assets.FIREBALL_ATLAS));
 
-        fireballAnimation = new Animation<>(0.10f, fireballAtlas.findRegions("fireball"));
+        fireballAnimation = new Animation<TextureAtlas.AtlasRegion>(0.10f, fireballAtlas.findRegions("fireball"));
         fireballAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));

@@ -26,9 +26,8 @@ public class GameScreen extends BaseScreen {
 
     public void update() {
         // Si pulso la tecla ESC, vuelvo al menú principal
-        if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             game.setScreen(new MainMenuScreen(game));
-            pause();
             dispose();
         }
     }
