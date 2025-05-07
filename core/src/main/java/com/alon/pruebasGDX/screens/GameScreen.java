@@ -48,7 +48,7 @@ public class GameScreen extends BaseScreen {
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
         game.batcher.begin();
         // Dibuja el fondo
-        game.batcher.draw(Assets.getTexture(Assets.GAME_BOARD), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getTexture(Assets.MINIGAME), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
 
         stage.act();

@@ -20,6 +20,9 @@ public class Prueba1 extends Game {
 
     @Override
     public void create () {
+
+        Gdx.graphics.setTitle(TITLE + " " + VERSION);
+
         // Inicializar componentes básicos
         batcher = new SpriteBatch();
 

@@ -15,6 +15,7 @@ public class Assets {
         LOGO = "sprites/arquero/arquero_lvl3.png",
         BACKGROUND = "background/tienda.png",
         GAME_BOARD = "background/tablero.png",
+        MINIGAME = "background/cielo.png",
         FIGURA_MAGO_3 = "sprites/mago/mago_lvl3.png",
         MAIN_MENU_MUSIC = "music/DanceOf1000Suns.wav",
         GAME_MUSIC = "music/TheFrozenPeak.wav",
@@ -36,6 +37,7 @@ public class Assets {
         assetManager.load(TITLE_LABEL, Texture.class);
         assetManager.load(BACKGROUND, Texture.class);
         assetManager.load(GAME_BOARD, Texture.class);
+        assetManager.load(MINIGAME, Texture.class);
         assetManager.load(FIGURA_MAGO_3, Texture.class);
         assetManager.load(MAIN_MENU_MUSIC, Music.class);
         assetManager.load(GAME_MUSIC, Music.class);
