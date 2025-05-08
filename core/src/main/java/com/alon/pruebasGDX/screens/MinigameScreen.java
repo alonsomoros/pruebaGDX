@@ -1,5 +1,7 @@
 package com.alon.pruebasGDX.screens;
 
+import com.alon.pruebasGDX.Figura;
+import com.alon.pruebasGDX.Fireball;
 import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.Settings;
@@ -9,22 +11,25 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-
-import javax.swing.text.Utilities;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 public class MinigameScreen extends BaseScreen {
 
     private final Music minigameMusic;
 
-    private float magoX = 0;
+    private Vector2 touchPos = new Vector2();
     private final float VELOCIDAD_MAGO = 400; // píxeles por segundo
 
+    private Array<Fireball> fireballs;
     private Animation<TextureAtlas.AtlasRegion> fireballAnimation;
-    private Sprite fireballSprite;
+    private Figura magoFigura;
+
+    private int puntuacion;
 
     public MinigameScreen(Prueba1 game) {
         super(game);
@@ -33,7 +38,9 @@ public class MinigameScreen extends BaseScreen {
 
     @Override
     protected void buildUI() {
-        createFireAnimation();
+        fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
+        fireballs = new Array<>();
+        this.magoFigura = new Figura();
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
         Gdx.input.setInputProcessor(multiplexer);
@@ -42,16 +49,34 @@ public class MinigameScreen extends BaseScreen {
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
+        fireballTimer += deltaTime;
+        if (fireballTimer > 1f) {
+            fireballTimer = 0;
+            createFireballs();
+        }
+
+        if (puntuacion == 5 && magoFigura.getNivel() == 1) {
+            this.magoFigura.subirNivel();
+        } else if (puntuacion == 10 && magoFigura.getNivel() == 2) {
+            this.magoFigura.subirNivel();
+        }
+
         // Movimiento con teclas A y D
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            magoX -= VELOCIDAD_MAGO * deltaTime;
+            magoFigura.getSprite().setX(magoFigura.getSprite().getX() - VELOCIDAD_MAGO * deltaTime);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            magoX += VELOCIDAD_MAGO * deltaTime;
+            magoFigura.getSprite().setX(magoFigura.getSprite().getX() + VELOCIDAD_MAGO * deltaTime);
+        }
+
+        if (Gdx.input.isTouched()) { // Detectar si la pantalla ha sido tocada.
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY()); // Obtener la posición del toque en la pantalla.
+            viewport.unproject(touchPos); // Convertir las coordenadas de la pantalla a coordenadas del mundo.
+            magoFigura.getSprite().setCenterX(touchPos.x); // Limita el desplazamiento al eje X del Sprite.
         }
 
         // Opcional: Limitar el movimiento dentro de la pantalla
-        magoX = Math.max(0, Math.min(magoX, game.V_WIDTH - 125));
+        magoFigura.getSprite().setX(Math.max(0, Math.min(magoFigura.getSprite().getX(), game.V_WIDTH - 125)));
     }
 
     float stateTime = 0f;
@@ -71,8 +96,10 @@ public class MinigameScreen extends BaseScreen {
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
         game.batcher.begin();
         stateTime += Gdx.graphics.getDeltaTime();
-        drawFireballAnimation(stateTime);
-        game.batcher.draw(Assets.loadTexture(Assets.FIGURA_MAGO_3), magoX, 0, 125, 145);
+        for (Fireball fireball : fireballs) {
+            drawFireballAnimation(delta, fireball);
+        }
+        game.batcher.draw(magoFigura.getSprite(), magoFigura.getSprite().getX(), 0, 125, 145);
         game.batcher.end();
 
         stage.act();
@@ -128,8 +155,8 @@ public class MinigameScreen extends BaseScreen {
         minigameMusic.stop();
         minigameMusic.dispose();
         fireballAnimation.getKeyFrame(0).getTexture().dispose();
-        fireballSprite.getTexture().dispose();
         stage.dispose();
+        fireballs.clear();
     }
 
     // Métodos de InputProcessor
@@ -148,21 +175,37 @@ public class MinigameScreen extends BaseScreen {
 
     // Métodos de animación
 
-    private void createFireAnimation() {
-        TextureAtlas fireballAtlas = new TextureAtlas(Gdx.files.internal(Assets.FIREBALL_ATLAS));
-
-        fireballAnimation = new Animation<TextureAtlas.AtlasRegion>(0.10f, fireballAtlas.findRegions("fireball"));
-        fireballAnimation.setPlayMode(Animation.PlayMode.LOOP);
-
-        fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));
-        fireballSprite.scale(1f);
-        fireballSprite.setPosition(MathUtils.random(0, game.V_WIDTH), game.V_HEIGHT);
+    private void createFireballs() {
+        float fireballWidth = fireballAnimation.getKeyFrame(0).getRegionWidth();
+        Fireball fireball = new Fireball(MathUtils.random(0, game.V_WIDTH - fireballWidth), game.V_HEIGHT);
+        fireballs.add(fireball);
     }
 
-    private void drawFireballAnimation(float stateTime) {
-        TextureRegion fireballRegion = fireballAnimation.getKeyFrame(stateTime, true);
-        fireballSprite.setRegion(fireballRegion);
-        fireballSprite.setPosition(fireballSprite.getX(), game.V_HEIGHT - stateTime * 150);
-        fireballSprite.draw(game.batcher);
+
+    float fireballTimer = 0;
+    private void drawFireballAnimation(float stateTime, Fireball fireball) {
+        TextureRegion fireballRegion = fireballAnimation.getKeyFrame(stateTime, true); // Pilla el sprite que toque por delta
+//        fireballSprite = new Sprite(fireballRegion); // Crea el sprite (se podrá precargar 3 sprites?)
+
+        float fireballHeight = fireball.getFireballSprite().getHeight();
+        float fireballWidth = fireball.getFireballSprite().getWidth();
+
+        fireball.getFireballSprite().translateY(-200f * stateTime);
+        fireball.getFireballHitbox().set(fireball.getFireballSprite().getX(), fireball.getFireballSprite().getY(), fireballWidth, fireballHeight);
+
+        if (fireball.getFireballSprite().getY() < -fireball.getFireballSprite().getHeight()) {
+            fireballs.removeValue(fireball, true);
+        }
+
+        Rectangle magoHitbox = magoFigura.getSprite().getBoundingRectangle();
+        Rectangle fireballHitbox = fireball.getFireballHitbox();
+        if (magoHitbox.overlaps(fireballHitbox)) {
+            fireballs.removeValue(fireball, true);
+            puntuacion++;
+            Gdx.app.log("Puntuación", String.valueOf(puntuacion));
+        }
+
+        fireball.getFireballSprite().setRegion(fireballRegion);
+        fireball.getFireballSprite().draw(game.batcher);
     }
 }
