@@ -204,7 +204,7 @@ public class MainMenuScreen extends BaseScreen {
                 Sound level_up_sound = Assets.assetManager.get(Assets.LEVEL_UP_SOUND);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Minigame", "Click en Minigame");
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new MinigameScreen(game));
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
