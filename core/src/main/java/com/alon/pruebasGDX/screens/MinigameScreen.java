@@ -12,9 +12,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+
+import javax.swing.text.Utilities;
 
 public class MinigameScreen extends BaseScreen {
-    private final Prueba1 game;
 
     private final Music minigameMusic;
 
@@ -26,7 +28,6 @@ public class MinigameScreen extends BaseScreen {
 
     public MinigameScreen(Prueba1 game) {
         super(game);
-        this.game = game;
         this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
     }
 
@@ -54,6 +55,7 @@ public class MinigameScreen extends BaseScreen {
     }
 
     float stateTime = 0f;
+
     public void draw(float delta) {
         GL20 gl = Gdx.gl;
         gl.glClearColor(0.88235f, 0.91765f, 0.90588f, 1f);
@@ -138,9 +140,6 @@ public class MinigameScreen extends BaseScreen {
             case Input.Keys.ESCAPE:
                 game.setScreen(new MainMenuScreen(game));
                 return true;
-            case Input.Keys.ENTER:
-                Gdx.app.log("Enter", "Enter key pressed");
-                return true;
         }
         return false;
     }
@@ -157,12 +156,13 @@ public class MinigameScreen extends BaseScreen {
 
         fireballSprite = new Sprite(fireballAnimation.getKeyFrame(0));
         fireballSprite.scale(1f);
-        fireballSprite.setPosition(350, 233);
+        fireballSprite.setPosition(MathUtils.random(0, game.V_WIDTH), game.V_HEIGHT);
     }
 
     private void drawFireballAnimation(float stateTime) {
         TextureRegion fireballRegion = fireballAnimation.getKeyFrame(stateTime, true);
         fireballSprite.setRegion(fireballRegion);
+        fireballSprite.setPosition(fireballSprite.getX(), game.V_HEIGHT - stateTime * 150);
         fireballSprite.draw(game.batcher);
     }
 }

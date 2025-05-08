@@ -18,14 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends BaseScreen {
-    private final Prueba1 game;
 
     private final Music mainMenuMusic;
     private Sprite titleSprite;
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
-        this.game = game;
         this.mainMenuMusic = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC);
     }
 

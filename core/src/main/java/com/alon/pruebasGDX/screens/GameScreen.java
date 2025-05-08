@@ -12,13 +12,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends BaseScreen {
-    private final Prueba1 game;
 
     private final Music minigameMusic;
 
     public GameScreen(Prueba1 game) {
         super(game);
-        this.game = game;
         this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
     }
 
