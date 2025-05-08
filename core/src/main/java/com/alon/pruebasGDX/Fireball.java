@@ -1,6 +1,7 @@
 package com.alon.pruebasGDX;
 
 import com.alon.pruebasGDX.assets.Assets;
+import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,6 +16,7 @@ public class Fireball {
     private Sprite fireballSprite;
     private Rectangle fireballHitbox;
     private Sound fireballSound;
+    private float animationTime = 0f;
 
     public Fireball(float x, float y) {
         this.fireballTextureAtlas = new TextureAtlas(Gdx.files.internal(Assets.FIREBALL_ATLAS));
@@ -24,11 +26,15 @@ public class Fireball {
         this.fireballSprite.setPosition(x,y);
         this.fireballHitbox = new Rectangle();
         this.fireballSound = Assets.getSound(MathUtils.randomBoolean() ? Assets.FIREBALL_SOUND_1 : Assets.FIREBALL_SOUND_2);
-        fireballSound.play();
+        fireballSound.play(0.2f);
     }
 
     public Sprite getFireballSprite() {
         return fireballSprite;
+    }
+
+    public void setFireballSprite(Sprite fireballSprite) {
+        this.fireballSprite = fireballSprite;
     }
 
     public Rectangle getFireballHitbox() {
@@ -38,4 +44,13 @@ public class Fireball {
     public Sound getFireballSound() {
         return fireballSound;
     }
+
+    public float getAnimationTime() {
+        return animationTime;
+    }
+
+    public void updateAnimationTime(float deltaTime) {
+        animationTime += deltaTime;
+    }
+
 }
