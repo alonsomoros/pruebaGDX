@@ -1,12 +1,12 @@
-fireball.png
+waterball.png
 size:256,64
 repeat:none
-fireball1
+waterball1
 index:3
 bounds:2,2,55,55
-fireball2
+waterball2
 index:2
 bounds:59,2,55,55
-fireball3
+waterball3
 index:1
 bounds:116,2,55,55
