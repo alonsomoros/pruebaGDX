@@ -16,6 +16,8 @@ public class Assets {
         BACKGROUND = "background/tienda.png",
         GAME_BOARD = "background/tablero.png",
         MINIGAME = "background/cielo.png",
+        FIGURA_MAGO_1 = "sprites/mago/mago_lvl1.png",
+        FIGURA_MAGO_2 = "sprites/mago/mago_lvl2.png",
         FIGURA_MAGO_3 = "sprites/mago/mago_lvl3.png",
         MAIN_MENU_MUSIC = "music/DanceOf1000Suns.wav",
         GAME_MUSIC = "music/TheFrozenPeak.wav",
@@ -25,6 +27,9 @@ public class Assets {
         BUTTON_LABEL_JSON = "buttons/uiskin_label/uiskin_label.json",
         BUTTON_MINIGAME_JSON = "buttons/uiskin_minigame/uiskin_minigame.json",
         FIREBALL_ATLAS = "sprites/fireball/fireball.atlas",
+        FIREBALL_SPRITE_1 = "sprites/fireball/fireball_1.png",
+        FIREBALL_SPRITE_2 = "sprites/fireball/fireball_2.png",
+        FIREBALL_SPRITE_3 = "sprites/fireball/fireball_3.png",
         TITLE_LABEL = "icons/logoWhite.png";
 
     public static Texture loadTexture(String file) {
@@ -38,6 +43,8 @@ public class Assets {
         assetManager.load(BACKGROUND, Texture.class);
         assetManager.load(GAME_BOARD, Texture.class);
         assetManager.load(MINIGAME, Texture.class);
+        assetManager.load(FIGURA_MAGO_1, Texture.class);
+        assetManager.load(FIGURA_MAGO_2, Texture.class);
         assetManager.load(FIGURA_MAGO_3, Texture.class);
         assetManager.load(MAIN_MENU_MUSIC, Music.class);
         assetManager.load(GAME_MUSIC, Music.class);
@@ -47,6 +54,9 @@ public class Assets {
         assetManager.load(BUTTON_LABEL_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetManager.load(BUTTON_MINIGAME_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetManager.load(FIREBALL_ATLAS, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
+        assetManager.load(FIREBALL_SPRITE_1, Texture.class);
+        assetManager.load(FIREBALL_SPRITE_2, Texture.class);
+        assetManager.load(FIREBALL_SPRITE_3, Texture.class);
 
         // … más assets
         assetManager.finishLoading();
