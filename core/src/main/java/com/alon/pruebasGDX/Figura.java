@@ -3,9 +3,10 @@ package com.alon.pruebasGDX;
 import com.alon.pruebasGDX.assets.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Figura {
+public class Figura implements GameElement {
     private Sprite sprite;
     private int nivel;
 
@@ -34,6 +35,17 @@ public class Figura {
             hitboxHeight
         );
     }
+
+    @Override
+    public void update(float deltaTime) {
+        actualizarHitbox();
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        batch.draw(sprite, sprite.getX(), 0, 125, 145);
+    }
+
     public Sprite getSprite() {
         return sprite;
     }
