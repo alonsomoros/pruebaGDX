@@ -25,7 +25,6 @@ public class Waterball {
         this.waterballSprite.setPosition(x,y);
         this.waterballHitbox = new Rectangle();
         this.waterballSound = Assets.getSound(MathUtils.randomBoolean() ? Assets.WATERBALL_SOUND_1 : Assets.WATERBALL_SOUND_2);
-        waterballSound.play(0.2f);
     }
 
     public Sprite getWaterballSprite() {

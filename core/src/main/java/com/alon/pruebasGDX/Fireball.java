@@ -26,7 +26,6 @@ public class Fireball {
         this.fireballSprite.setPosition(x,y);
         this.fireballHitbox = new Rectangle();
         this.fireballSound = Assets.getSound(MathUtils.randomBoolean() ? Assets.FIREBALL_SOUND_1 : Assets.FIREBALL_SOUND_2);
-        fireballSound.play(0.2f);
     }
 
     public Sprite getFireballSprite() {

@@ -11,14 +11,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
+
+import static com.alon.pruebasGDX.Prueba1.font;
 
 public class MinigameScreen extends BaseScreen {
 
@@ -32,6 +32,7 @@ public class MinigameScreen extends BaseScreen {
     private Animation<TextureAtlas.AtlasRegion> fireballAnimation;
     private Animation<TextureAtlas.AtlasRegion> waterballAnimation;
     private Figura magoFigura;
+    private float dificultad = 0;
 
     private int puntuacion;
 
@@ -42,6 +43,9 @@ public class MinigameScreen extends BaseScreen {
 
     @Override
     protected void buildUI() {
+        Table mainTable = new Table();
+        mainTable.setFillParent(true);
+        stage.addActor(mainTable);
         fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
         waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.WATERBALL_ATLAS, TextureAtlas.class).getRegions());
         fireballs = new Array<>();
@@ -49,6 +53,7 @@ public class MinigameScreen extends BaseScreen {
         this.magoFigura = new Figura();
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
+        multiplexer.addProcessor(stage);    // Primero el stage (para los botones)
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -63,27 +68,27 @@ public class MinigameScreen extends BaseScreen {
             waterball.updateAnimationTime(deltaTime);
         }
 
-        fireballTimer += deltaTime;
+        fireballTimer += deltaTime * MathUtils.random(0,3f + dificultad);
         if (fireballTimer > 1f) {
             fireballTimer = 0;
             createFireballs();
         }
 
-        waterballTimer += deltaTime;
+        waterballTimer += deltaTime * MathUtils.random(0,1f);
         if (waterballTimer > 1f) {
             waterballTimer = 0;
             createWaterballs();
         }
 
-        if (puntuacion == 5 && magoFigura.getNivel() == 1) {
+        if (puntuacion == 10 && magoFigura.getNivel() == 1) {
             this.magoFigura.subirNivel();
-        } else if (puntuacion == 10 && magoFigura.getNivel() == 2) {
+        } else if (puntuacion == 20 && magoFigura.getNivel() == 2) {
             this.magoFigura.subirNivel();
         }
 
-        if (puntuacion == 4 && magoFigura.getNivel() == 2) {
+        if (puntuacion == 9 && magoFigura.getNivel() == 2) {
             this.magoFigura.bajarNivel();
-        } else if (puntuacion == 9 && magoFigura.getNivel() == 3) {
+        } else if (puntuacion == 19 && magoFigura.getNivel() == 3) {
             this.magoFigura.bajarNivel();
         }
 
@@ -117,6 +122,8 @@ public class MinigameScreen extends BaseScreen {
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
         game.batcher.draw(Assets.getTexture(Assets.MINIGAME), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getTexture(Assets.SUELO), 0, 0, game.V_WIDTH, Assets.getTexture(Assets.SUELO).getHeight());
+        font.draw(game.batcher, "Puntuacion: " + puntuacion, 10, game.V_HEIGHT - 10);
         game.batcher.end();
 
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
@@ -238,7 +245,9 @@ public class MinigameScreen extends BaseScreen {
         Rectangle fireballHitbox = fireball.getFireballHitbox();
         if (magoHitbox.overlaps(fireballHitbox)) {
             fireballs.removeValue(fireball, true);
+            fireball.getFireballSound().play(0.2f);
             puntuacion--;
+            dificultad-= 0.1f;
             Gdx.app.log("Puntuación", String.valueOf(puntuacion));
         }
 
@@ -265,7 +274,9 @@ public class MinigameScreen extends BaseScreen {
         Rectangle waterballHitbox = waterball.getWaterballHitbox();
         if (magoHitbox.overlaps(waterballHitbox)) {
             waterballs.removeValue(waterball, true);
+            waterball.getWaterballSound().play(0.2f);
             puntuacion++;
+            dificultad+= 0.2f;
             Gdx.app.log("Puntuación", String.valueOf(puntuacion));
         }
 

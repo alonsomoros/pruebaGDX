@@ -5,9 +5,14 @@ import com.alon.pruebasGDX.screens.MainMenuScreen;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
 public class Prueba1 extends Game {
 
     public static final String TITLE = "pruebasGDX";
@@ -16,10 +21,12 @@ public class Prueba1 extends Game {
     public final int V_WIDTH = 800;
     public final int V_HEIGHT = 500;
 
+    public static BitmapFont font;
+
     public SpriteBatch batcher;
 
     @Override
-    public void create () {
+    public void create() {
 
         Gdx.graphics.setTitle(TITLE + " " + VERSION);
 
@@ -34,6 +41,12 @@ public class Prueba1 extends Game {
 
         // Cargar recursos
         Assets.finishLoading();
+
+        Texture fuentePixel = Assets.assetManager.get(Assets.FUENTE_PIXEL_PNG, Texture.class);
+        fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        font = new BitmapFont(Gdx.files.internal(Assets.FUENTE_PIXEL_TTF), new TextureRegion(fuentePixel));
+        font.getData().setScale(1f);
+
         setScreen(new MainMenuScreen(this));
 
         // Se puede hacer una pantalla de carga si hay muchos assets de la siguiente manera:
@@ -43,27 +56,27 @@ public class Prueba1 extends Game {
     }
 
     @Override
-    public void resize (int width, int height) {
+    public void resize(int width, int height) {
         super.resize(width, height);
     }
 
     @Override
-    public void render () {
+    public void render() {
         super.render();
     }
 
     @Override
-    public void pause () {
+    public void pause() {
         super.pause();
     }
 
     @Override
-    public void resume () {
+    public void resume() {
         super.resume();
     }
 
     @Override
-    public void dispose () {
+    public void dispose() {
         super.dispose();
         Assets.dispose();
     }
