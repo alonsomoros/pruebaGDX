@@ -16,6 +16,7 @@ public class Assets {
         BACKGROUND = "background/tienda.png",
         GAME_BOARD = "background/tablero.png",
         MINIGAME = "background/cielo.png",
+        SUELO = "background/suelo.png",
         TITLE_LABEL = "icons/logoWhite.png",
         FIGURA_MAGO_1 = "sprites/mago/mago_lvl1.png",
         FIGURA_MAGO_2 = "sprites/mago/mago_lvl2.png",
@@ -47,6 +48,7 @@ public class Assets {
         assetManager.load(LOGO, Texture.class);
         assetManager.load(TITLE_LABEL, Texture.class);
         assetManager.load(BACKGROUND, Texture.class);
+        assetManager.load(SUELO, Texture.class);
         assetManager.load(GAME_BOARD, Texture.class);
         assetManager.load(MINIGAME, Texture.class);
         assetManager.load(FIGURA_MAGO_1, Texture.class);
