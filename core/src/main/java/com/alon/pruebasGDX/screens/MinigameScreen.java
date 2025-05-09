@@ -1,9 +1,9 @@
 package com.alon.pruebasGDX.screens;
 
 import com.alon.pruebasGDX.Figura;
-import com.alon.pruebasGDX.Fireball;
+import com.alon.pruebasGDX.proyectiles.Fireball;
 import com.alon.pruebasGDX.Prueba1;
-import com.alon.pruebasGDX.Waterball;
+import com.alon.pruebasGDX.proyectiles.Waterball;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
@@ -94,10 +94,10 @@ public class MinigameScreen extends BaseScreen {
 
         // Movimiento con teclas A y D
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            magoFigura.getSprite().setX(magoFigura.getSprite().getX() - VELOCIDAD_MAGO * deltaTime);
+            magoFigura.setPosition(magoFigura.getSprite().getX() - VELOCIDAD_MAGO * deltaTime, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            magoFigura.getSprite().setX(magoFigura.getSprite().getX() + VELOCIDAD_MAGO * deltaTime);
+            magoFigura.setPosition(magoFigura.getSprite().getX() + VELOCIDAD_MAGO * deltaTime, 0);
         }
 
         if (Gdx.input.isTouched()) { // Detectar si la pantalla ha sido tocada.
@@ -107,7 +107,8 @@ public class MinigameScreen extends BaseScreen {
         }
 
         // Opcional: Limitar el movimiento dentro de la pantalla
-        magoFigura.getSprite().setX(Math.max(0, Math.min(magoFigura.getSprite().getX(), game.V_WIDTH - 125)));
+        magoFigura.setPosition(Math.max(0, Math.min(magoFigura.getSprite().getX(), game.V_WIDTH - 125)), 0);
+        magoFigura.actualizarHitbox();
     }
 
     float stateTime = 0f;
@@ -231,57 +232,56 @@ public class MinigameScreen extends BaseScreen {
         TextureRegion fireballRegion = fireballAnimation.getKeyFrame(fireball.getAnimationTime(), true); // Pilla el sprite que toque por delta
 //        Gdx.app.log("Fireball", "Sprite " + fireballs.indexOf(fireball, true) + ": " + fireballRegion.toString());
 
-        float fireballHeight = fireball.getFireballSprite().getHeight();
-        float fireballWidth = fireball.getFireballSprite().getWidth();
+        float fireballHeight = fireball.getProyectilSprite().getHeight();
+        float fireballWidth = fireball.getProyectilSprite().getWidth();
 
-        fireball.getFireballSprite().translateY(-200f * stateTime);
-        fireball.getFireballHitbox().set(fireball.getFireballSprite().getX(), fireball.getFireballSprite().getY(), fireballWidth, fireballHeight);
+        fireball.getProyectilSprite().translateY(-200f * stateTime);
+        fireball.getProyectilHitbox().set(fireball.getProyectilSprite().getX(), fireball.getProyectilSprite().getY(), fireballWidth, fireballHeight);
 
-        if (fireball.getFireballSprite().getY() < -fireball.getFireballSprite().getHeight()) {
+        if (fireball.getProyectilSprite().getY() < -fireball.getProyectilSprite().getHeight()) {
             fireballs.removeValue(fireball, true);
         }
 
-        Rectangle magoHitbox = magoFigura.getSprite().getBoundingRectangle();
-        Rectangle fireballHitbox = fireball.getFireballHitbox();
-        if (magoHitbox.overlaps(fireballHitbox)) {
+        Rectangle fireballHitbox = fireball.getProyectilHitbox();
+        if (magoFigura.getHitbox().overlaps(fireballHitbox)) {
             fireballs.removeValue(fireball, true);
-            fireball.getFireballSound().play(0.2f);
+            fireball.getProyectilSound().play(0.2f);
             puntuacion--;
             dificultad-= 0.1f;
             Gdx.app.log("Puntuación", String.valueOf(puntuacion));
         }
 
-        fireball.getFireballSprite().setTexture(fireballAnimation.getKeyFrame(stateTime).getTexture());
-        fireball.getFireballSprite().setRegion(fireballRegion);
-        fireball.getFireballSprite().draw(game.batcher);
+        fireball.getProyectilSprite().setTexture(fireballAnimation.getKeyFrame(stateTime).getTexture());
+        fireball.getProyectilSprite().setRegion(fireballRegion);
+        fireball.getProyectilSprite().draw(game.batcher);
     }
 
     float waterballTimer = 0;
     private void drawWaterballAnimation(float stateTime, Waterball waterball) {
         TextureRegion waterRegion = waterballAnimation.getKeyFrame(waterball.getAnimationTime(), true); // Pilla el sprite que toque por delta
 
-        float waterballHeigh = waterball.getWaterballSprite().getHeight();
-        float waterballWidth = waterball.getWaterballSprite().getWidth();
+        float waterballHeigh = waterball.getProyectilSprite().getHeight();
+        float waterballWidth = waterball.getProyectilSprite().getWidth();
 
-        waterball.getWaterballSprite().translateY(-200f * stateTime);
-        waterball.getWaterballHitbox().set(waterball.getWaterballSprite().getX(), waterball.getWaterballSprite().getY(), waterballWidth, waterballHeigh);
+        waterball.getProyectilSprite().translateY(-200f * stateTime);
+        waterball.getProyectilHitbox().set(waterball.getProyectilSprite().getX(), waterball.getProyectilSprite().getY(), waterballWidth, waterballHeigh);
 
-        if (waterball.getWaterballSprite().getY() < -waterball.getWaterballSprite().getHeight()) {
+        if (waterball.getProyectilSprite().getY() < -waterball.getProyectilSprite().getHeight()) {
             waterballs.removeValue(waterball, true);
         }
 
         Rectangle magoHitbox = magoFigura.getSprite().getBoundingRectangle();
-        Rectangle waterballHitbox = waterball.getWaterballHitbox();
+        Rectangle waterballHitbox = waterball.getProyectilHitbox();
         if (magoHitbox.overlaps(waterballHitbox)) {
             waterballs.removeValue(waterball, true);
-            waterball.getWaterballSound().play(0.2f);
+            waterball.getProyectilSound().play(0.2f);
             puntuacion++;
             dificultad+= 0.2f;
             Gdx.app.log("Puntuación", String.valueOf(puntuacion));
         }
 
-        waterball.getWaterballSprite().setTexture(waterballAnimation.getKeyFrame(stateTime).getTexture());
-        waterball.getWaterballSprite().setRegion(waterRegion);
-        waterball.getWaterballSprite().draw(game.batcher);
+        waterball.getProyectilSprite().setTexture(waterballAnimation.getKeyFrame(stateTime).getTexture());
+        waterball.getProyectilSprite().setRegion(waterRegion);
+        waterball.getProyectilSprite().draw(game.batcher);
     }
 }

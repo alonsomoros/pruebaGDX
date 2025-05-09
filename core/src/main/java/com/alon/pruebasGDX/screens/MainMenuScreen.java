@@ -172,7 +172,7 @@ public class MainMenuScreen extends BaseScreen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Sound level_up_sound = Assets.assetManager.get(Assets.LEVEL_UP_SOUND);
+                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Nueva partida", "Click en Nueva partida");
                 game.setScreen(new GameScreen(game));
@@ -199,7 +199,7 @@ public class MainMenuScreen extends BaseScreen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Sound level_up_sound = Assets.assetManager.get(Assets.LEVEL_UP_SOUND);
+                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Minigame", "Click en Minigame");
                 game.setScreen(new MinigameScreen(game));

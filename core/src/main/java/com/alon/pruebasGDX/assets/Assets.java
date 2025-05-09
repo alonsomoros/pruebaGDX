@@ -25,7 +25,9 @@ public class Assets {
         FIGURA_MAGO_3 = "sprites/mago/mago_lvl3.png",
         MAIN_MENU_MUSIC = "music/DanceOf1000Suns.wav",
         GAME_MUSIC = "music/TheFrozenPeak.wav",
-        LEVEL_UP_SOUND = "sounds/levelUpSound2.mp3",
+        BUTTON_EFFECT = "sounds/button_effect.mp3",
+        LEVEL_UP_SOUND = "sounds/levelUp_Sound.mp3",
+        LEVEL_DOWN_SOUND = "sounds/levelDown_Sound.mp3",
         BUTTON_LABEL_JSON = "buttons/uiskin_label/uiskin_label.json",
         BUTTON_MINIGAME_JSON = "buttons/uiskin_minigame/uiskin_minigame.json",
         FIREBALL_ATLAS = "sprites/fireball/fireball.atlas",
@@ -64,7 +66,9 @@ public class Assets {
         assetManager.load(FIREBALL_SOUND_2, Sound.class);
         assetManager.load(WATERBALL_SOUND_1, Sound.class);
         assetManager.load(WATERBALL_SOUND_2, Sound.class);
+        assetManager.load(BUTTON_EFFECT, Sound.class);
         assetManager.load(LEVEL_UP_SOUND, Sound.class);
+        assetManager.load(LEVEL_DOWN_SOUND, Sound.class);
         assetManager.load(BUTTON_LABEL_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetManager.load(BUTTON_MINIGAME_JSON, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetManager.load(FIREBALL_ATLAS, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);

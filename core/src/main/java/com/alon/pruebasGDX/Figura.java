@@ -3,28 +3,67 @@ package com.alon.pruebasGDX;
 import com.alon.pruebasGDX.assets.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Figura {
     private Sprite sprite;
     private int nivel;
 
+    private final Rectangle hitbox;
+
+    private float hitboxOffsetX;
+    private float hitboxOffsetY;
+    private float hitboxWidth;
+    private float hitboxHeight;
+
     public Figura() {
         this.nivel = 1;
         this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
         this.sprite.setSize(125f, 145f);
+        // Valores predeterminados para el hitbox (más pequeño que el sprite)
+        this.hitboxOffsetX = 35f; // Ajusta según necesites
+        this.hitboxOffsetY = 20f; // Ajusta según necesites
+        this.hitboxWidth = 55f;   // Ancho del hitbox
+        this.hitboxHeight = 105f; // Alto del hitbox
+
+        // Inicializa el hitbox con estos valores
+        this.hitbox = new Rectangle(
+            sprite.getX() + hitboxOffsetX,
+            sprite.getY() + hitboxOffsetY,
+            hitboxWidth,
+            hitboxHeight
+        );
     }
     public Sprite getSprite() {
         return sprite;
     }
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
     public int getNivel() {
         return nivel;
     }
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void actualizarHitbox() {
+        if (sprite != null && hitbox != null) {
+            hitbox.x = sprite.getX() + hitboxOffsetX;
+            hitbox.y = sprite.getY() + hitboxOffsetY;
+        }
     }
+
+    public void configurarHitbox(float offsetX, float offsetY, float width, float height) {
+        this.hitboxOffsetX = offsetX;
+        this.hitboxOffsetY = offsetY;
+        this.hitboxWidth = width;
+        this.hitboxHeight = height;
+
+        // Actualiza el hitbox con los nuevos valores
+        actualizarHitbox();
+    }
+
+    public void setPosition(float x, float y) {
+        if (sprite != null) {
+            sprite.setPosition(x, y);
+            actualizarHitbox();
+        }
+    }
+
     public void subirNivel() {
         float oldX = 0;
         float oldY = 0;
@@ -61,6 +100,7 @@ public class Figura {
         // Restaurar posición y establecer tamaño constante
         this.sprite.setPosition(oldX, oldY);
         this.sprite.setSize(125f, 145f);
+        Assets.getSound(Assets.LEVEL_UP_SOUND).play(0.2f);
     }
 
     public void bajarNivel() {
@@ -90,14 +130,16 @@ public class Figura {
                 case 2:
                     this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_2));
                     break;
-                case 3:
-                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_3));
-                    break;
             }
         }
 
         // Restaurar posición y establecer tamaño constante
         this.sprite.setPosition(oldX, oldY);
         this.sprite.setSize(125f, 145f);
+        Assets.getSound(Assets.LEVEL_DOWN_SOUND).play(0.2f);
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
     }
 }
