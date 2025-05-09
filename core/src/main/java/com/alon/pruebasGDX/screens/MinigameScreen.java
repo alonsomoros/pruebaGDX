@@ -3,6 +3,7 @@ package com.alon.pruebasGDX.screens;
 import com.alon.pruebasGDX.Figura;
 import com.alon.pruebasGDX.proyectiles.Fireball;
 import com.alon.pruebasGDX.Prueba1;
+import com.alon.pruebasGDX.proyectiles.ProyectilMinigame;
 import com.alon.pruebasGDX.proyectiles.Waterball;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.Settings;
@@ -24,21 +25,40 @@ public class MinigameScreen extends BaseScreen {
 
     private final Music minigameMusic;
 
-    private Vector2 touchPos = new Vector2();
-    private final float VELOCIDAD_MAGO = 400; // píxeles por segundo
+    private static final float VELOCIDAD_MAGO = 400; // píxeles por segundo
+    private static final float BASE_PROJECTILE_SPEED = 200f;
+    private static final float FIREBALL_SPAWN_RATE = 1f;
+    private static final float WATERBALL_SPAWN_RATE = 1f;
+    private static final int LEVEL_1_THRESHOLD = 10;
+    private static final int LEVEL_2_THRESHOLD = 20;
 
+    private Vector2 touchPos = new Vector2();
     private Array<Fireball> fireballs;
     private Array<Waterball> waterballs;
     private Animation<TextureAtlas.AtlasRegion> fireballAnimation;
     private Animation<TextureAtlas.AtlasRegion> waterballAnimation;
     private Figura magoFigura;
-    private float dificultad = 0;
-
+    private float dificultad;
     private int puntuacion;
+    private float fireballTimer;
+    private float waterballTimer;
 
     public MinigameScreen(Prueba1 game) {
         super(game);
         this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
+        create();
+    }
+
+    public void create() {
+        this.fireballs = new Array<>();
+        this.waterballs = new Array<>();
+        this.fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
+        this.waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.WATERBALL_ATLAS, TextureAtlas.class).getRegions());
+        this.puntuacion = 0;
+        this.dificultad = 0;
+        this.fireballTimer = 0;
+        this.waterballTimer = 0;
+        this.magoFigura = new Figura();
     }
 
     @Override
@@ -46,11 +66,6 @@ public class MinigameScreen extends BaseScreen {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
         stage.addActor(mainTable);
-        fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
-        waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.WATERBALL_ATLAS, TextureAtlas.class).getRegions());
-        fireballs = new Array<>();
-        waterballs = new Array<>();
-        this.magoFigura = new Figura();
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
         multiplexer.addProcessor(stage);    // Primero el stage (para los botones)
@@ -59,38 +74,8 @@ public class MinigameScreen extends BaseScreen {
 
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-
-        for (Fireball fireball : fireballs) {
-            fireball.updateAnimationTime(deltaTime);
-        }
-
-        for (Waterball waterball : waterballs) {
-            waterball.updateAnimationTime(deltaTime);
-        }
-
-        fireballTimer += deltaTime * MathUtils.random(0,3f + dificultad);
-        if (fireballTimer > 1f) {
-            fireballTimer = 0;
-            createFireballs();
-        }
-
-        waterballTimer += deltaTime * MathUtils.random(0,1f);
-        if (waterballTimer > 1f) {
-            waterballTimer = 0;
-            createWaterballs();
-        }
-
-        if (puntuacion == 10 && magoFigura.getNivel() == 1) {
-            this.magoFigura.subirNivel();
-        } else if (puntuacion == 20 && magoFigura.getNivel() == 2) {
-            this.magoFigura.subirNivel();
-        }
-
-        if (puntuacion == 9 && magoFigura.getNivel() == 2) {
-            this.magoFigura.bajarNivel();
-        } else if (puntuacion == 19 && magoFigura.getNivel() == 3) {
-            this.magoFigura.bajarNivel();
-        }
+        updateProjectiles(deltaTime);
+        checkNivelFigura();
 
         // Movimiento con teclas A y D
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -120,27 +105,33 @@ public class MinigameScreen extends BaseScreen {
         camera.update();
         game.batcher.setProjectionMatrix(camera.combined);
 
-        game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
-        game.batcher.begin();
-        game.batcher.draw(Assets.getTexture(Assets.MINIGAME), 0, 0, game.V_WIDTH, game.V_HEIGHT);
-        game.batcher.draw(Assets.getTexture(Assets.SUELO), 0, 0, game.V_WIDTH, Assets.getTexture(Assets.SUELO).getHeight());
-        font.draw(game.batcher, "Puntuacion: " + puntuacion, 10, game.V_HEIGHT - 10);
-        game.batcher.end();
+        drawBackground();
 
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
         game.batcher.begin();
         stateTime += Gdx.graphics.getDeltaTime();
+
         for (Fireball fireball : fireballs) {
-            drawFireballAnimation(delta, fireball);
+            processProjectile(delta, fireball, fireballAnimation);
         }
         for (Waterball waterball : waterballs) {
-            drawWaterballAnimation(delta, waterball);
+            processProjectile(delta, waterball, waterballAnimation);
         }
         game.batcher.draw(magoFigura.getSprite(), magoFigura.getSprite().getX(), 0, 125, 145);
         game.batcher.end();
 
         stage.act();
         stage.draw();
+    }
+
+    private void drawBackground() {
+        game.batcher.disableBlending();
+        game.batcher.begin();
+        game.batcher.draw(Assets.getTexture(Assets.MINIGAME), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getTexture(Assets.SUELO), 0, 0, game.V_WIDTH,
+                Assets.getTexture(Assets.SUELO).getHeight());
+        font.draw(game.batcher, "Puntuacion: " + puntuacion, 10, game.V_HEIGHT - 10);
+        game.batcher.end();
     }
 
     @Override
@@ -226,62 +217,96 @@ public class MinigameScreen extends BaseScreen {
         waterballs.add(waterball);
     }
 
-
-    float fireballTimer = 0;
-    private void drawFireballAnimation(float stateTime, Fireball fireball) {
-        TextureRegion fireballRegion = fireballAnimation.getKeyFrame(fireball.getAnimationTime(), true); // Pilla el sprite que toque por delta
-//        Gdx.app.log("Fireball", "Sprite " + fireballs.indexOf(fireball, true) + ": " + fireballRegion.toString());
-
-        float fireballHeight = fireball.getProyectilSprite().getHeight();
-        float fireballWidth = fireball.getProyectilSprite().getWidth();
-
-        fireball.getProyectilSprite().translateY(-200f * stateTime);
-        fireball.getProyectilHitbox().set(fireball.getProyectilSprite().getX(), fireball.getProyectilSprite().getY(), fireballWidth, fireballHeight);
-
-        if (fireball.getProyectilSprite().getY() < -fireball.getProyectilSprite().getHeight()) {
-            fireballs.removeValue(fireball, true);
-        }
-
-        Rectangle fireballHitbox = fireball.getProyectilHitbox();
-        if (magoFigura.getHitbox().overlaps(fireballHitbox)) {
-            fireballs.removeValue(fireball, true);
-            fireball.getProyectilSound().play(0.2f);
-            puntuacion--;
-            dificultad-= 0.1f;
-            Gdx.app.log("Puntuación", String.valueOf(puntuacion));
-        }
-
-        fireball.getProyectilSprite().setTexture(fireballAnimation.getKeyFrame(stateTime).getTexture());
-        fireball.getProyectilSprite().setRegion(fireballRegion);
-        fireball.getProyectilSprite().draw(game.batcher);
+    public void updateProjectiles(float deltaTime) {
+        updateFireball(deltaTime);
+        updateWaterball(deltaTime);
     }
 
-    float waterballTimer = 0;
-    private void drawWaterballAnimation(float stateTime, Waterball waterball) {
-        TextureRegion waterRegion = waterballAnimation.getKeyFrame(waterball.getAnimationTime(), true); // Pilla el sprite que toque por delta
-
-        float waterballHeigh = waterball.getProyectilSprite().getHeight();
-        float waterballWidth = waterball.getProyectilSprite().getWidth();
-
-        waterball.getProyectilSprite().translateY(-200f * stateTime);
-        waterball.getProyectilHitbox().set(waterball.getProyectilSprite().getX(), waterball.getProyectilSprite().getY(), waterballWidth, waterballHeigh);
-
-        if (waterball.getProyectilSprite().getY() < -waterball.getProyectilSprite().getHeight()) {
-            waterballs.removeValue(waterball, true);
+    public void updateFireball(float deltaTime) {
+        for (Fireball fireball : fireballs) {
+            fireball.updateAnimationTime(deltaTime);
         }
 
-        Rectangle magoHitbox = magoFigura.getSprite().getBoundingRectangle();
-        Rectangle waterballHitbox = waterball.getProyectilHitbox();
-        if (magoHitbox.overlaps(waterballHitbox)) {
-            waterballs.removeValue(waterball, true);
-            waterball.getProyectilSound().play(0.2f);
+        fireballTimer += deltaTime * MathUtils.random(0,3f + dificultad);
+        if (fireballTimer > FIREBALL_SPAWN_RATE) {
+            fireballTimer = 0;
+            createFireballs();
+        }
+    }
+
+    public void updateWaterball(float deltaTime) {
+        for (Waterball waterball : waterballs) {
+            waterball.updateAnimationTime(deltaTime);
+        }
+
+        waterballTimer += deltaTime * MathUtils.random(0,1f);
+        if (waterballTimer > WATERBALL_SPAWN_RATE) {
+            waterballTimer = 0;
+            createWaterballs();
+        }
+    }
+
+    public void checkNivelFigura() {
+        if (puntuacion == LEVEL_1_THRESHOLD && magoFigura.getNivel() == 1) {
+            this.magoFigura.subirNivel();
+        } else if (puntuacion == LEVEL_2_THRESHOLD && magoFigura.getNivel() == 2) {
+            this.magoFigura.subirNivel();
+        }
+
+        if (puntuacion == (LEVEL_1_THRESHOLD - 1) && magoFigura.getNivel() == 2) {
+            this.magoFigura.bajarNivel();
+        } else if (puntuacion == (LEVEL_2_THRESHOLD -1) && magoFigura.getNivel() == 3) {
+            this.magoFigura.bajarNivel();
+        }
+    }
+
+    private void processProjectile(float delta, ProyectilMinigame proyectil, Animation<TextureAtlas.AtlasRegion> animation) {
+        TextureRegion region = animation.getKeyFrame(proyectil.getAnimationTime(), true);
+
+        // Actualiza posición
+        proyectil.getProyectilSprite().translateY(-BASE_PROJECTILE_SPEED * delta);
+        proyectil.getProyectilHitbox().setPosition(
+                proyectil.getProyectilSprite().getX(),
+                proyectil.getProyectilSprite().getY()
+        );
+
+        // Comprueba si está fuera de pantalla
+        if (proyectil.getProyectilSprite().getY() < -proyectil.getProyectilSprite().getHeight()) {
+            removeProjectile(proyectil);
+            return;
+        }
+
+        // Comprueba colisión
+        if (magoFigura.getHitbox().overlaps(proyectil.getProyectilHitbox())) {
+            handleCollision(proyectil);
+        }
+
+        // Dibuja
+        proyectil.getProyectilSprite().setTexture(region.getTexture());
+        proyectil.getProyectilSprite().setRegion(region);
+        proyectil.getProyectilSprite().draw(game.batcher);
+    }
+
+    private void handleCollision(ProyectilMinigame proyectil) {
+        if (proyectil instanceof Fireball) {
+            fireballs.removeValue((Fireball)proyectil, true);
+            puntuacion--;
+            dificultad -= 0.1f;
+        } else if (proyectil instanceof Waterball) {
+            waterballs.removeValue((Waterball)proyectil, true);
             puntuacion++;
-            dificultad+= 0.2f;
-            Gdx.app.log("Puntuación", String.valueOf(puntuacion));
+            dificultad += 0.2f;
         }
 
-        waterball.getProyectilSprite().setTexture(waterballAnimation.getKeyFrame(stateTime).getTexture());
-        waterball.getProyectilSprite().setRegion(waterRegion);
-        waterball.getProyectilSprite().draw(game.batcher);
+        proyectil.getProyectilSound().play(0.2f);
+        Gdx.app.log("Puntuación", String.valueOf(puntuacion));
+    }
+
+    private void removeProjectile(ProyectilMinigame proyectil) {
+        if (proyectil instanceof Fireball) {
+            fireballs.removeValue((Fireball)proyectil, true);
+        } else if (proyectil instanceof Waterball) {
+            waterballs.removeValue((Waterball)proyectil, true);
+        }
     }
 }
