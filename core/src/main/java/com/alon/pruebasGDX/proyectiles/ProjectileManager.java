@@ -4,7 +4,7 @@ import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.ScoreManager;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.CollisionHandler;
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,11 +27,9 @@ public class ProjectileManager {
     private float waterballTimer;
     private float dificultad;
     private final Prueba1 game;
-    private final ScoreManager scoreManager;
 
-    public ProjectileManager(Prueba1 game, ScoreManager scoreManager) {
+    public ProjectileManager(Prueba1 game) {
         this.game = game;
-        this.scoreManager = scoreManager;
         this.fireballs = new Array<>();
         this.waterballs = new Array<>();
         this.fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
@@ -75,20 +73,6 @@ public class ProjectileManager {
         } else if (proyectil instanceof Waterball) {
             waterballs.removeValue((Waterball)proyectil, true);
         }
-    }
-
-    private void handleCollision(ProyectilMinigame proyectil) {
-        if (proyectil instanceof Fireball) {
-            fireballs.removeValue((Fireball)proyectil, true);
-            dificultad -= 0.1f;
-            scoreManager.addScore(-1);
-        } else if (proyectil instanceof Waterball) {
-            waterballs.removeValue((Waterball)proyectil, true);
-            scoreManager.addScore(1);
-            dificultad += 0.2f;
-        }
-
-        proyectil.getProyectilSound().play(0.2f);
     }
 
     public void updateFireball(float deltaTime) {
