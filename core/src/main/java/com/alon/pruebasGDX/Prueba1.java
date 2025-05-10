@@ -42,9 +42,9 @@ public class Prueba1 extends Game {
         // Cargar recursos
         Assets.finishLoading();
 
-        Texture fuentePixel = Assets.assetManager.get(Assets.FUENTE_PIXEL_PNG, Texture.class);
+        Texture fuentePixel = Assets.assetManager.get(Assets.FUENTE_PIXEL_PNG_PATH, Texture.class);
         fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        font = new BitmapFont(Gdx.files.internal(Assets.FUENTE_PIXEL_TTF), new TextureRegion(fuentePixel));
+        font = new BitmapFont(Gdx.files.internal(Assets.FUENTE_PIXEL_TTF_PATH), new TextureRegion(fuentePixel));
         font.getData().setScale(1f);
 
         setScreen(new MainMenuScreen(this));

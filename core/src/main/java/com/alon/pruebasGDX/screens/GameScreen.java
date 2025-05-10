@@ -17,7 +17,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen(Prueba1 game) {
         super(game);
-        this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
+        this.minigameMusic = Assets.assetManager.get(Assets.MINIGAME_MUSIC_PATH);
     }
 
     @Override
@@ -32,23 +32,31 @@ public class GameScreen extends BaseScreen {
 
     float stateTime = 0f;
     public void draw(float delta) {
-        GL20 gl = Gdx.gl;
-        gl.glClearColor(0.145f, 0.0078f, 0.0f, 1f);
-        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        game.batcher.setProjectionMatrix(camera.combined);
+        clearScreen();
 
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
         game.batcher.end();
 
-        game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
-        game.batcher.begin();
-        game.batcher.draw(Assets.getTexture(Assets.GAME_BOARD), 0, 0, game.V_WIDTH, game.V_HEIGHT);
-        game.batcher.end();
+        drawBackground();
 
         stage.act();
         stage.draw();
+    }
+
+    public void clearScreen() {
+        GL20 gl = Gdx.gl;
+        gl.glClearColor(0.145f, 0.0078f, 0.0f, 1f);
+        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.update();
+        game.batcher.setProjectionMatrix(camera.combined);
+    }
+
+    private void drawBackground() {
+        game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
+        game.batcher.begin();
+        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_WHEELS_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.end();
     }
 
     @Override

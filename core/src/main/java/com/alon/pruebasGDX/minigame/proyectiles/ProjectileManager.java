@@ -31,8 +31,8 @@ public class ProjectileManager {
         this.game = game;
         this.fireballs = new Array<>();
         this.waterballs = new Array<>();
-        this.fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
-        this.waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.WATERBALL_ATLAS, TextureAtlas.class).getRegions());
+        this.fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS_PATH, TextureAtlas.class).getRegions());
+        this.waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.WATERBALL_ATLAS_PATH, TextureAtlas.class).getRegions());
         this.fireballTimer = 0;
         this.waterballTimer = 0;
     }

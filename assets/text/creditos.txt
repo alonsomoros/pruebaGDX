@@ -1,0 +1,78 @@
+Estudio Sabotage presenta:
+GIRARRODILLOS
+
+Equipo de Desarrollo
+
+Productores Ejecutivos
+
+    Jean-François Major
+    Martin Brouard
+
+Director de Juego
+
+    Thierry Boulanger
+
+Diseñadores de Juego
+
+    Philippe Dion
+    Benjamin Laulan
+
+Programadores Principales
+
+    Martin Brouard
+    Maxime Lanciault
+
+Artistas Principales
+
+    Sylvain Cloutier
+    Jon Lajoie
+
+Artistas de Personajes
+
+    Catherine Schimanuki
+    David Jalbert
+
+Artistas de Entornos
+
+    Alexandre Fortin
+    Mylène Cormier
+
+Animadores
+
+    Philippe Dion
+    Alexis Lessard
+
+Escritores
+
+    Thierry Boulanger
+    Émile Drouin
+
+Compositores de Música
+
+    Eric W. Brown (Rainbowdragoneyes)
+    Patrice Bourgeault
+
+Diseñadores de Sonido
+
+    Jean-Philippe Godbout
+    Alexandre Leclerc
+
+QA y Testeo
+
+    Maxime Vaillancourt
+    Gabriel Tremblay
+
+Marketing y Comunicaciones
+
+    Sophie McGarry
+    Pierre-Olivier Gilbert
+
+Agradecimientos Especiales
+
+    A nuestras familias y amigos por su apoyo incondicional.
+    A nuestros fans por su pasión y entusiasmo.
+    A nuestra comunidad de desarrolladores por su inspiración y colaboración.
+
+Una producción de Estudio Sabotage
+
+    2024 © Estudio Sabotage. Todos los derechos reservados.

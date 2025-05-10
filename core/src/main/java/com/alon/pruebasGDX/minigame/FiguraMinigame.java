@@ -19,7 +19,7 @@ public class FiguraMinigame implements GameElement {
 
     public FiguraMinigame() {
         this.nivel = 1;
-        this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
+        this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1_PATH));
         this.sprite.setSize(125f, 145f);
         // Valores predeterminados para el hitbox (más pequeño que el sprite)
         this.hitboxOffsetX = 35f; // Ajusta según necesites
@@ -94,17 +94,17 @@ public class FiguraMinigame implements GameElement {
         }
 
         if (sprite == null) {
-            sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
+            sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1_PATH));
         } else {
             switch (nivel) {
                 case 1:
-                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
+                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1_PATH));
                     break;
                 case 2:
-                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_2));
+                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_2_PATH));
                     break;
                 case 3:
-                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_3));
+                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_3_PATH));
                     break;
             }
         }
@@ -112,7 +112,7 @@ public class FiguraMinigame implements GameElement {
         // Restaurar posición y establecer tamaño constante
         this.sprite.setPosition(oldX, oldY);
         this.sprite.setSize(125f, 145f);
-        Assets.getSound(Assets.LEVEL_UP_SOUND).play(0.2f);
+        Assets.getSound(Assets.LEVEL_UP_SOUND_PATH).play(0.2f);
     }
 
     public void bajarNivel() {
@@ -133,14 +133,14 @@ public class FiguraMinigame implements GameElement {
         }
 
         if (sprite == null) {
-            sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
+            sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1_PATH));
         } else {
             switch (nivel) {
                 case 1:
-                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
+                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1_PATH));
                     break;
                 case 2:
-                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_2));
+                    this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_2_PATH));
                     break;
             }
         }
@@ -148,7 +148,7 @@ public class FiguraMinigame implements GameElement {
         // Restaurar posición y establecer tamaño constante
         this.sprite.setPosition(oldX, oldY);
         this.sprite.setSize(125f, 145f);
-        Assets.getSound(Assets.LEVEL_DOWN_SOUND).play(0.2f);
+        Assets.getSound(Assets.LEVEL_DOWN_SOUND_PATH).play(0.2f);
     }
 
     public Rectangle getHitbox() {

@@ -24,7 +24,7 @@ public class MainMenuScreen extends BaseScreen {
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
-        this.mainMenuMusic = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC);
+        this.mainMenuMusic = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC_PATH);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MainMenuScreen extends BaseScreen {
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
         // Dibuja el fondo
-        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_MAIN_MENU_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
 
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
@@ -148,13 +148,12 @@ public class MainMenuScreen extends BaseScreen {
     // Métodos de creación de UI
 
     private void createTitle(Table mainTable) {
-        Assets.assetManager.get(Assets.LOGO);
-        Texture title_label = Assets.getTexture(Assets.TITLE_LABEL);
+        Texture title_label = Assets.getTexture(Assets.MAIN_TITLE_LABEL_PATH);
         titleSprite = new Sprite(title_label);
     }
 
     private void createStartWheelsButton(Table mainTable) {
-        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_LABEL_JSON);
+        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH);
         Button buttonStart = new Button(skinButtonLabel);
         mainTable.add(buttonStart).center().height(70).width(220).padBottom(-10); // Centrar y añadir margen superior
 
@@ -172,7 +171,7 @@ public class MainMenuScreen extends BaseScreen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT);
+                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Nueva partida", "Click en Nueva partida");
                 game.setScreen(new GameScreen(game));
@@ -181,7 +180,7 @@ public class MainMenuScreen extends BaseScreen {
     }
 
     private void createStartMiniGameButton(Table mainTable) {
-        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON);
+        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH);
         Button buttonMinigame = new Button(skinButtonLabel);
         mainTable.add(buttonMinigame).center().height(70).width(290).padBottom(10).padLeft(15); // Centrar y añadir margen superior
 
@@ -199,7 +198,7 @@ public class MainMenuScreen extends BaseScreen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT);
+                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Minigame", "Click en Minigame");
                 game.setScreen(new MinigameScreen(game));

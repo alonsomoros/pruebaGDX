@@ -34,7 +34,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
 
     public MinigameScreen(Prueba1 game) {
         super(game);
-        this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
+        this.minigameMusic = Assets.assetManager.get(Assets.MINIGAME_MUSIC_PATH);
         this.magoFigura = new FiguraMinigame();
         this.scoreManager = new ScoreManagerMinigame(magoFigura);
         this.projectileManager = new ProjectileManager(game);
@@ -85,9 +85,9 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     private void drawBackground() {
         game.batcher.disableBlending();
         game.batcher.begin();
-        game.batcher.draw(Assets.getTexture(Assets.MINIGAME), 0, 0, game.V_WIDTH, game.V_HEIGHT);
-        game.batcher.draw(Assets.getTexture(Assets.SUELO), 0, 0, game.V_WIDTH,
-                Assets.getTexture(Assets.SUELO).getHeight());
+        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_MINIGAME_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_SUELO_PATH), 0, 0, game.V_WIDTH,
+                Assets.getTexture(Assets.BACKGROUND_SUELO_PATH).getHeight());
         font.draw(game.batcher, "Puntuacion: " + scoreManager.getPuntuacion(), 10, game.V_HEIGHT - 10);
         game.batcher.end();
     }
