@@ -1,0 +1,71 @@
+Resumen
+
+Girarrodillos es un juego de combate mecánico donde cada jugador controla a dos héroes. ¡Haz coincidir la energía para que los héroes ataquen y reducir los PV de la corona del enemigo a cero!
+
+Rodillos de mesa y jugador
+
+La mesa tiene un juego de cuatro rodillos predeterminados a cada lado, que se completan con los rodillos de jugador de cada jugador. Cada lado también muestra los PV de sus respectivos jugadores (corona) y héroes (figuritas).
+
+Girar rodillos
+
+Los jugadores tienen hasta tres tiradas por ronda. Tira con (Una tecla). Los rodillos se pueden recorrer con <- y -> y bloquear y desbloquear con (una tecla) entre tirada.
+
+Energía
+
+Para que un héroe actúe, toca reducir su barra de acción coincidiendo la energía asociada. La energía de cuadrado es para el héroe izquierdo, mientras rombo es para el héroe derecho. La energía se empareja con la regla de "3 del mismo tipo + 1" (3=1, 4=2, 5=3, etc).
+
+Bastión
+
+El bastión protege a la corona. Se puede levantar para resistir hasta 5 puntos de daño y para elevarlo hay que juntar martillos con la regla de "3 del mismo tipo + 1" (3=1, 4=2, 5=3, 6=4 y así sucesivamente).
+
+Evolucionar héroes
+
+Héroes evolucionan con el apto de EXP. Reciben 1EXP por recuadro con fondo azul coincidiendo tipo de energía (1=1, no 3 de un tipo de regla) y consiguen 2EXP siempre que actúan. Los héroes empiezan por la categría de bronce y pueden evolucionar a plata y a oro.
+
+Bombas
+
+Llenar la barra de EXP de un héroe de oro hace que aparezca una bomba que inflinge 2 de daño directamente a la corona de tu oponente, independientemente de su bastión.
+
+Héroes
+
+Cada héroe tiene sus propias fortalezas y debilidades. En total hay 6 héroes jugables: guerrero, mago, arquero, ingeniero, asesina y sacerdote.
+
+Guerrero
+
+Inflinge daño rápido y moderado de forma constante. Como su tipo de daño no traspasa, el bastión lo bloquea fácilmente.
+
+Mago
+
+Ataca dos veces. Lanza la primera bola de fuego a nivel de suelo y el bastión puede bloquearla facilmente, pero la segunda vuela a 6 unidades de altura, lo que garantiza que impacte en la corona, aunque el bastión esté potenciado al máximo.
+
+Arquero
+
+Es fuerte contra la corona, pero débil contra el bastión. La flecha vuela a 3 unidades de altura y golpea la corona cuando el bastión está a 2 o menos.
+
+Ingeniero
+
+Es fuerte contra el bastión y débil contra la corona. Como bonificación, el ingeniero eleva el bastión de su equipo en 2 unidades siempre que actúa.
+
+Asesina 
+
+Es un héroe especialista. Sus ataques retrasan al héroe del oponente al que le queda menos energía antes de actuar. También inflige un poco de daño a la corona directamente, independientemente del bastión.
+
+Sacerdote
+
+Es un héroe de apoyo. Cura la corona de su equipo y proporciona energía a su héroe compañero.
+
+
+Consejos
+
+- Aunque tenga cierta parte de “estrategia” y no debas ir a lo loco, la mayor parte será simple suerte, así que tenlo en cuenta. 
+- Siempre debes centrarte en un único personaje en lugar de intentar repartir los puntos... al acabar cada ronda no te quedará más remedio que conformarte con como acaben repartidos los puntos entre los héroes y/o muralla, pero por voluntad propia, procura centrarte en uno. 
+- Inicialmente, el mago suele ser siempre la mejor opción y luego, cuando consigas al arquero, cámbialo igualmente por el guerrero, ya que aunque el mago siga siendo recomendable, para los “puntos residuales” el arquero es mejor que el guerrero.
+- Cuando consigas al ingeniero, este será una buena opción contra guerreros, magos o arqueros.
+- Más adelante, una buena combinación será la Asesina, que ignora murallas y ataca directamente a la corona, y el Sacerdote, que le dará energía a la Asesina y además curará tu propia corona... Céntrate siempre en la Asesina, menos cuando necesites curarte.
+
+
+
+
+
+
+

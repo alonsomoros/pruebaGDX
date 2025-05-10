@@ -1,6 +1,7 @@
 package com.alon.pruebasGDX.screens;
 
 import com.alon.pruebasGDX.Prueba1;
+import com.alon.pruebasGDX.assets.AssetCatalog;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.*;
@@ -17,7 +18,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen(Prueba1 game) {
         super(game);
-        this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
+        this.minigameMusic = Assets.get(AssetCatalog.WHEELS_MUSIC);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class GameScreen extends BaseScreen {
     private void drawBackground() {
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
         game.batcher.begin();
-        game.batcher.draw(Assets.getTexture(Assets.GAME_BOARD), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_WHEELS_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
     }
 

@@ -1,5 +1,6 @@
 package com.alon.pruebasGDX;
 
+import com.alon.pruebasGDX.assets.AssetCatalog;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.screens.MainMenuScreen;
 import com.alon.pruebasGDX.utils.Settings;
@@ -37,14 +38,19 @@ public class Prueba1 extends Game {
         Settings.load();
 
         // Iniciar carga de recursos
-        Assets.load();
+        Assets.create();
 
         // Cargar recursos
         Assets.finishLoading();
 
-        Texture fuentePixel = Assets.assetManager.get(Assets.FUENTE_PIXEL_PNG, Texture.class);
-        fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        font = new BitmapFont(Gdx.files.internal(Assets.FUENTE_PIXEL_TTF), new TextureRegion(fuentePixel));
+        if (Assets.isLoaded(AssetCatalog.FUENTE_PIXEL_PNG)) {
+            Texture fuentePixel = Assets.get(AssetCatalog.FUENTE_PIXEL_PNG);
+            fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        } else {
+            Gdx.app.error("Prueba1", "No se pudo cargar el activo: " + AssetCatalog.FUENTE_PIXEL_PNG);
+            // Usar una textura alternativa o continuar sin ella
+        }
+        font = Assets.get(AssetCatalog.FUENTE_PIXEL_TTF);
         font.getData().setScale(1f);
 
         setScreen(new MainMenuScreen(this));

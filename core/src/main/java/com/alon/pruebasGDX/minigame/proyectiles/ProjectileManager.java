@@ -1,6 +1,7 @@
 package com.alon.pruebasGDX.minigame.proyectiles;
 
 import com.alon.pruebasGDX.Prueba1;
+import com.alon.pruebasGDX.assets.AssetCatalog;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.minigame.CollisionHandler;
 
@@ -31,8 +32,8 @@ public class ProjectileManager {
         this.game = game;
         this.fireballs = new Array<>();
         this.waterballs = new Array<>();
-        this.fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.FIREBALL_ATLAS, TextureAtlas.class).getRegions());
-        this.waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(Assets.WATERBALL_ATLAS, TextureAtlas.class).getRegions());
+        this.fireballAnimation = new Animation<>(0.1f, Assets.assetManager.get(String.valueOf(AssetCatalog.FIREBALL_ATLAS), TextureAtlas.class).getRegions());
+        this.waterballAnimation = new Animation<>(0.1f, Assets.assetManager.get(String.valueOf(AssetCatalog.WATERBALL_ATLAS), TextureAtlas.class).getRegions());
         this.fireballTimer = 0;
         this.waterballTimer = 0;
     }
