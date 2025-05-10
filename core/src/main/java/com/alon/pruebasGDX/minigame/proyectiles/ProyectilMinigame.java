@@ -1,4 +1,4 @@
-package com.alon.pruebasGDX.proyectiles;
+package com.alon.pruebasGDX.minigame.proyectiles;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;

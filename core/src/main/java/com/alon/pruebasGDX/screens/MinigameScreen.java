@@ -1,26 +1,22 @@
 package com.alon.pruebasGDX.screens;
 
-import com.alon.pruebasGDX.Figura;
-import com.alon.pruebasGDX.ScoreManager;
-import com.alon.pruebasGDX.proyectiles.Fireball;
+import com.alon.pruebasGDX.minigame.FiguraMinigame;
+import com.alon.pruebasGDX.minigame.ScoreManagerMinigame;
+import com.alon.pruebasGDX.minigame.proyectiles.Fireball;
 import com.alon.pruebasGDX.Prueba1;
-import com.alon.pruebasGDX.proyectiles.ProjectileManager;
-import com.alon.pruebasGDX.proyectiles.ProyectilMinigame;
-import com.alon.pruebasGDX.proyectiles.Waterball;
+import com.alon.pruebasGDX.minigame.proyectiles.ProjectileManager;
+import com.alon.pruebasGDX.minigame.proyectiles.ProyectilMinigame;
+import com.alon.pruebasGDX.minigame.proyectiles.Waterball;
 import com.alon.pruebasGDX.assets.Assets;
-import com.alon.pruebasGDX.utils.CollisionHandler;
+import com.alon.pruebasGDX.minigame.CollisionHandler;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Array;
 
 import static com.alon.pruebasGDX.Prueba1.font;
 
@@ -33,14 +29,14 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     private Vector2 touchPos = new Vector2();
 
     private ProjectileManager projectileManager;
-    private ScoreManager scoreManager;
-    private Figura magoFigura;
+    private ScoreManagerMinigame scoreManager;
+    private FiguraMinigame magoFigura;
 
     public MinigameScreen(Prueba1 game) {
         super(game);
         this.minigameMusic = Assets.assetManager.get(Assets.GAME_MUSIC);
-        this.magoFigura = new Figura();
-        this.scoreManager = new ScoreManager(magoFigura);
+        this.magoFigura = new FiguraMinigame();
+        this.scoreManager = new ScoreManagerMinigame(magoFigura);
         this.projectileManager = new ProjectileManager(game);
     }
 

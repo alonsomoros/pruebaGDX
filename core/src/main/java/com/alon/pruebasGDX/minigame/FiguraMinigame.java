@@ -1,4 +1,4 @@
-package com.alon.pruebasGDX;
+package com.alon.pruebasGDX.minigame;
 
 import com.alon.pruebasGDX.assets.Assets;
 import com.badlogic.gdx.Gdx;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Figura implements GameElement {
+public class FiguraMinigame implements GameElement {
     private Sprite sprite;
     private int nivel;
 
@@ -17,7 +17,7 @@ public class Figura implements GameElement {
     private float hitboxWidth;
     private float hitboxHeight;
 
-    public Figura() {
+    public FiguraMinigame() {
         this.nivel = 1;
         this.sprite = new Sprite(Assets.loadTexture(Assets.FIGURA_MAGO_1));
         this.sprite.setSize(125f, 145f);

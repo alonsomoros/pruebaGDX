@@ -1,4 +1,4 @@
-package com.alon.pruebasGDX;
+package com.alon.pruebasGDX.minigame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;

@@ -1,14 +1,14 @@
-package com.alon.pruebasGDX;
+package com.alon.pruebasGDX.minigame;
 
-public class ScoreManager {
+public class ScoreManagerMinigame {
     private int puntuacion;
     private float dificultad;
-    private Figura magoFigura;
+    private FiguraMinigame magoFigura;
 
     private static final int LEVEL_1_THRESHOLD = 10;
     private static final int LEVEL_2_THRESHOLD = 20;
 
-    public ScoreManager(Figura magoFigura) {
+    public ScoreManagerMinigame(FiguraMinigame magoFigura) {
         this.magoFigura = magoFigura;
         this.puntuacion = 0;
         this.dificultad = 0;

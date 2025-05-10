@@ -1,9 +1,8 @@
-package com.alon.pruebasGDX.proyectiles;
+package com.alon.pruebasGDX.minigame.proyectiles;
 
 import com.alon.pruebasGDX.Prueba1;
-import com.alon.pruebasGDX.ScoreManager;
 import com.alon.pruebasGDX.assets.Assets;
-import com.alon.pruebasGDX.utils.CollisionHandler;
+import com.alon.pruebasGDX.minigame.CollisionHandler;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
