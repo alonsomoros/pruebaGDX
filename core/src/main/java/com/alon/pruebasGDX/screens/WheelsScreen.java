@@ -10,19 +10,14 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class WheelsScreen extends BaseScreen {
 
-    private final Music minigameMusic;
-
     public WheelsScreen(Prueba1 game) {
         super(game);
 //        Assets.loadCategory(AssetCategory.WHEELS);
-        this.minigameMusic = Assets.assetManager.get(Assets.WHEELS_MUSIC_PATH);
+        this.music = Assets.assetManager.get(Assets.WHEELS_MUSIC_PATH);
     }
 
     @Override
-    protected void buildUI() {
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
-        Gdx.input.setInputProcessor(multiplexer);
+    protected void buildUI() { // Después la pantalla (para teclas)
     }
 
     public void update() {
@@ -57,12 +52,9 @@ public class WheelsScreen extends BaseScreen {
         game.batcher.end();
     }
 
-    @Override
-    public void show() {
-        minigameMusic.setLooping(true);
-        minigameMusic.setVolume(0.05f);
-        minigameMusic.play();
-    }
+//    @Override
+//    public void show() {
+//    }
 
     @Override
     public void render(float delta) {
@@ -79,34 +71,17 @@ public class WheelsScreen extends BaseScreen {
     @Override
     public void pause() {
         Settings.save();
-        if (minigameMusic.isPlaying()) {
-            minigameMusic.pause();
+        if (music.isPlaying()) {
+            music.pause();
         }
         Gdx.app.log("Pausa", "Juego pausado");
     }
 
     @Override
-    public void resume() {
-        Settings.load();
-        if (Settings.soundEnabled) {
-            minigameMusic.play();
-        }
-    }
-
-    @Override
-    public void hide() {
-        if (minigameMusic.isPlaying()) {
-            minigameMusic.stop();
-        }
-    }
-
-    @Override
     public void dispose() {
         super.dispose();
-        minigameMusic.stop();
-        minigameMusic.dispose();
         stage.dispose();
-        Assets.unloadCategory(AssetCategory.WHEELS);
+        Assets.pruebaUnloadCategory(this);
     }
 
     // Métodos de InputProcessor
@@ -115,7 +90,7 @@ public class WheelsScreen extends BaseScreen {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.ESCAPE:
-                game.setScreen(new MainMenuScreen(game));
+                game.showMainMenu();
                 return true;
             case Input.Keys.ENTER:
                 Gdx.app.log("Enter", "Enter key pressed");

@@ -14,16 +14,13 @@ import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-import static com.alon.pruebasGDX.Prueba1.font;
-
 public class MinigameScreen extends BaseScreen implements CollisionHandler {
-
-    private final Music minigameMusic;
 
     private static final float VELOCIDAD_MAGO = 400; // píxeles por segundo
 
@@ -36,7 +33,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     public MinigameScreen(Prueba1 game) {
         super(game);
 //        Assets.loadCategory(AssetCategory.MINIGAME);
-        this.minigameMusic = Assets.assetManager.get(Assets.MINIGAME_MUSIC_PATH);
+        this.music = Assets.assetManager.get(Assets.MINIGAME_MUSIC_PATH);
         this.magoFigura = new FiguraMinigame();
         this.scoreManager = new ScoreManagerMinigame(magoFigura);
         this.projectileManager = new ProjectileManager(game);
@@ -46,11 +43,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     protected void buildUI() {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
-        stage.addActor(mainTable);
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
-        multiplexer.addProcessor(stage);    // Primero el stage (para los botones)
-        Gdx.input.setInputProcessor(multiplexer);
+        stage.addActor(mainTable);// Primero el stage (para los botones)
     }
 
     public void update() {
@@ -90,16 +83,18 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
         game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_MINIGAME_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_SUELO_PATH), 0, 0, game.V_WIDTH,
                 Assets.getTexture(Assets.BACKGROUND_SUELO_PATH).getHeight());
-        font.draw(game.batcher, "Puntuacion: " + scoreManager.getPuntuacion(), 10, game.V_HEIGHT - 10);
+        Texture fuentePixel = Assets.getTexture(Assets.FUENTE_PIXEL_PNG_PATH);
+        fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        BitmapFont bf = Assets.getBitmapFont(Assets.FUENTE_PIXEL_TTF_PATH);
+        bf.getData().setScale(1f);
+        bf.draw(game.batcher, "Puntuacion: " + scoreManager.getPuntuacion(), 10, game.V_HEIGHT - 10);
         game.batcher.end();
     }
 
-    @Override
-    public void show() {
-        minigameMusic.setLooping(true);
-        minigameMusic.setVolume(0.05f);
-        minigameMusic.play();
-    }
+//    @Override
+//    public void show() {
+//
+//    }
 
     @Override
     public void render(float delta) {
@@ -116,35 +111,18 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     @Override
     public void pause() {
         Settings.save();
-        if (minigameMusic.isPlaying()) {
-            minigameMusic.pause();
+        if (music.isPlaying()) {
+            music.pause();
         }
         Gdx.app.log("Pausa", "Juego pausado");
     }
 
     @Override
-    public void resume() {
-        Settings.load();
-        if (Settings.soundEnabled) {
-            minigameMusic.play();
-        }
-    }
-
-    @Override
-    public void hide() {
-        if (minigameMusic.isPlaying()) {
-            minigameMusic.stop();
-        }
-    }
-
-    @Override
     public void dispose() {
         super.dispose();
-        minigameMusic.stop();
-        minigameMusic.dispose();
         projectileManager.dispose();
         stage.dispose();
-        Assets.unloadCategory(AssetCategory.MINIGAME);
+        Assets.pruebaUnloadCategory(this);
     }
 
     // Métodos de InputProcessor
@@ -153,7 +131,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.ESCAPE:
-                game.setScreen(new MainMenuScreen(game));
+                game.showMainMenu();
                 return true;
         }
         return false;

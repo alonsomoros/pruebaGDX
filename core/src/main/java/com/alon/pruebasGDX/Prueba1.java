@@ -3,6 +3,8 @@ package com.alon.pruebasGDX;
 import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.screens.MainMenuScreen;
+import com.alon.pruebasGDX.screens.MinigameScreen;
+import com.alon.pruebasGDX.screens.WheelsScreen;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -22,7 +24,9 @@ public class Prueba1 extends Game {
     public final int V_WIDTH = 800;
     public final int V_HEIGHT = 500;
 
-    public static BitmapFont font;
+    private MainMenuScreen mainMenuScreen;
+    private MinigameScreen minigameScreen;
+    private WheelsScreen wheelsScreen;
 
     public SpriteBatch batcher;
 
@@ -40,17 +44,30 @@ public class Prueba1 extends Game {
         // Iniciar carga de recursos
         Assets.loadCategory(AssetCategory.COMMON);
 
-        Texture fuentePixel = Assets.assetManager.get(Assets.FUENTE_PIXEL_PNG_PATH, Texture.class);
-        fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        font = new BitmapFont(Gdx.files.internal(Assets.FUENTE_PIXEL_TTF_PATH), new TextureRegion(fuentePixel));
-        font.getData().setScale(1f);
+        // Cargar las pantallas
+        minigameScreen = new MinigameScreen(this);
+        wheelsScreen = new WheelsScreen(this);
+        mainMenuScreen = new MainMenuScreen(this);
 
-        setScreen(new MainMenuScreen(this));
+        setScreen(this.mainMenuScreen);
 
         // Se puede hacer una pantalla de carga si hay muchos assets de la siguiente manera:
         // if (Assets.assetManager.update()) {
         //     setScreen(new MainMenuScreen(this));
         // }
+    }
+
+    // Métodos para navegar entre pantallas
+    public void showMainMenu() {
+        setScreen(mainMenuScreen);
+    }
+
+    public void showMinigame() {
+        setScreen(minigameScreen);
+    }
+
+    public void showWheels() {
+        setScreen(wheelsScreen);
     }
 
     @Override
@@ -75,7 +92,10 @@ public class Prueba1 extends Game {
 
     @Override
     public void dispose() {
-        super.dispose();
+        batcher.dispose();
+        mainMenuScreen.dispose();
+        wheelsScreen.dispose();
+        minigameScreen.dispose();
         Assets.dispose();
     }
 }

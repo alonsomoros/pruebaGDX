@@ -20,13 +20,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends BaseScreen {
 
-    private final Music mainMenuMusic;
     private Sprite titleSprite;
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
 //        Assets.loadCategory(AssetCategory.MAIN_MENU);
-        this.mainMenuMusic = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
+        this.music = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
     }
 
     @Override
@@ -39,13 +38,7 @@ public class MainMenuScreen extends BaseScreen {
         mainTable.row();
         createStartMiniGameButton(mainTable);
 
-        stage.addActor(mainTable);
-
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(stage);    // Primero el stage (para los botones)
-        multiplexer.addProcessor(this);     // Después la pantalla (para teclas)
-
-        Gdx.input.setInputProcessor(multiplexer);
+        stage.addActor(mainTable);// Después la pantalla (para teclas)
     }
 
     public void update() {
@@ -80,12 +73,9 @@ public class MainMenuScreen extends BaseScreen {
 
     // Métodos de Screen
 
-    @Override
-    public void show() {
-        mainMenuMusic.setLooping(true);
-        mainMenuMusic.setVolume(0.05f);
-        mainMenuMusic.play();
-    }
+//    @Override
+//    public void show() {
+//    }
 
     @Override
     public void render(float delta) {
@@ -102,35 +92,18 @@ public class MainMenuScreen extends BaseScreen {
     @Override
     public void pause() {
         Settings.save();
-        if (mainMenuMusic.isPlaying()) {
-            mainMenuMusic.pause();
+        if (music.isPlaying()) {
+            music.pause();
         }
         Gdx.app.log("Pausa", "Juego pausado");
     }
 
     @Override
-    public void resume() {
-        Settings.load();
-        if (Settings.soundEnabled) {
-            mainMenuMusic.play();
-        }
-    }
-
-    @Override
-    public void hide() {
-        if (mainMenuMusic.isPlaying()) {
-            mainMenuMusic.stop();
-        }
-    }
-
-    @Override
     public void dispose() {
         super.dispose();
-        mainMenuMusic.stop();
-        mainMenuMusic.dispose();
         stage.dispose();
         titleSprite.getTexture().dispose();
-        Assets.unloadCategory(AssetCategory.MAIN_MENU);
+        Assets.pruebaUnloadCategory(this);
     }
 
     // Métodos de InputProcessor
@@ -177,7 +150,8 @@ public class MainMenuScreen extends BaseScreen {
                 Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Nueva partida", "Click en Nueva partida");
-                game.setScreen(new WheelsScreen(game));
+                game.showWheels();
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
     }
@@ -204,7 +178,7 @@ public class MainMenuScreen extends BaseScreen {
                 Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Minigame", "Click en Minigame");
-                game.setScreen(new MinigameScreen(game));
+                game.showMinigame();
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
