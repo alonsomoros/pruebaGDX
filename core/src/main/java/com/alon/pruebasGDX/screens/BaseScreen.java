@@ -2,9 +2,12 @@ package com.alon.pruebasGDX.screens;
 
 import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.assets.Assets;
+import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,10 +20,10 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     protected OrthographicCamera camera;
     protected Viewport viewport;
     protected Stage stage;
+    protected Music music;
 
     public BaseScreen(Prueba1 game) {
         this.game = game;
-        Assets.pruebaLoadCategory(this);
 
         // Cámara ortográfica para mundo 2D
         camera = new OrthographicCamera();
@@ -30,7 +33,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
         // Ajusta la cámara a la vista
         stage = new Stage(viewport, game.batcher);
-        Gdx.input.setInputProcessor(stage);
+        Assets.pruebaLoadCategory(this);
 
         buildUI();
     }
@@ -43,7 +46,14 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
+        music.setLooping(true);
+        music.setVolume(0.05f);
+        music.play();
 
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -65,12 +75,25 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     @Override public void pause() { }
 
-    @Override public void resume() { }
+    @Override public void resume() {
+        Settings.load();
+        if (Settings.soundEnabled) {
+            music.play();
+        }
+    }
 
-    @Override public void hide() { }
+    @Override public void hide() {
+        if (Gdx.input.getInputProcessor() == stage) {
+            Gdx.input.setInputProcessor(null);
+        }
+        if (music.isPlaying()) {
+            music.stop();
+        }
+    }
 
     @Override public void dispose() {
-        stage.dispose();
+        music.stop();
+        music.dispose();
     }
 
 //    // Métodos de InputProcessor

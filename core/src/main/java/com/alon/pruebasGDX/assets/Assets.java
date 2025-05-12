@@ -631,6 +631,35 @@ public class Assets {
         Gdx.app.log("Assets", "Categoría " + category + " cargada");
     }
 
+    public static void pruebaUnloadCategory(BaseScreen screen) {
+        AssetCategory category = null;
+        String clase = screen.getClass().getName();
+        switch (clase) {
+            case "com.alon.pruebasGDX.screens.MainMenuScreen":
+                category = AssetCategory.MAIN_MENU;
+                break;
+            case "com.alon.pruebasGDX.screens.WheelsScreen":
+                category = AssetCategory.WHEELS;
+                break;
+            case "com.alon.pruebasGDX.screens.MinigameScreen":
+                category = AssetCategory.MINIGAME;
+                break;
+            default:
+                Gdx.app.log("Assets", "Categoría no válida para la pantalla: " + screen.getClass().getName());
+        }
+
+        Gdx.app.log("Assets", "Descargando assets de categoría: " + category);
+
+        for (Map.Entry<String, AssetCategory> entry : assetCategories.entrySet()) {
+            if (entry.getValue() == category && entry.getValue() != AssetCategory.COMMON) {
+                String path = entry.getKey();
+                if (assetManager.isLoaded(path)) {
+                    assetManager.unload(path);
+                }
+            }
+        }
+    }
+
     public static void loadCategory(AssetCategory category) {
         Gdx.app.log("Assets", "Cargando assets de categoría: " + category);
 
