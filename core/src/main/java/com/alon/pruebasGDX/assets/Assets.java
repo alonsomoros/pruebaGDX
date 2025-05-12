@@ -124,7 +124,6 @@ public class Assets {
         assetTypes.put(ATAQUE_ESPECIAL_PATH, Texture.class);
         assetTypes.put(BASE_FIGURA_CUADRADO_0_PATH, Texture.class);
         assetTypes.put(BASE_FIGURA_CUADRADO_1_PATH, Texture.class);
-        assetTypes.put(BASE_FIGURA_CUADRADO_1_PATH, Texture.class);
         assetTypes.put(BASE_FIGURA_CUADRADO_2_PATH, Texture.class);
         assetTypes.put(BASE_FIGURA_CUADRADO_3_PATH, Texture.class);
         assetTypes.put(BASE_FIGURA_CUADRADO_4_PATH, Texture.class);
@@ -149,8 +148,6 @@ public class Assets {
         assetTypes.put(ACTIVADOR_ROMBO_3_PATH, Texture.class);
         assetTypes.put(ACTIVADOR_ROMBO_4_PATH, Texture.class);
         assetTypes.put(ACTIVADOR_ROMBO_5_PATH, Texture.class);
-        assetTypes.put(INSTRUCCIONES_PATH, com.badlogic.gdx.utils.JsonValue.class);
-        assetTypes.put(CREDITOS_PATH, com.badlogic.gdx.utils.JsonValue.class);
     }
 
     private static void initializeAssetCategories() {
@@ -372,11 +369,6 @@ public class Assets {
         WATERBALL_ATLAS_PATH = "sprites/waterball/waterball.atlas",
         WATERBALL_SPRITESHEET_PATH = "sprites/waterball/waterball.png";
 
-    // TEXT
-    public static final String
-        INSTRUCCIONES_PATH = "text/instrucciones.txt",
-        CREDITOS_PATH = "text/creditos.txt";
-
     public static Texture loadTexture(String file) {
         return new Texture(Gdx.files.internal(file));
     }
@@ -396,15 +388,15 @@ public class Assets {
         assetManager.load(FIGURA_ARQUERO_1_PATH, Texture.class);
         assetManager.load(FIGURA_ARQUERO_2_PATH, Texture.class);
         assetManager.load(FIGURA_ARQUERO_3_PATH, Texture.class);
-        assetManager.load(FIGURA_ASESINO_1_PATH, Texture.class);
-        assetManager.load(FIGURA_ASESINO_2_PATH, Texture.class);
-        assetManager.load(FIGURA_ASESINO_3_PATH, Texture.class);
-        assetManager.load(FIGURA_CABALLERO_1_PATH, Texture.class);
-        assetManager.load(FIGURA_CABALLERO_2_PATH, Texture.class);
-        assetManager.load(FIGURA_CABALLERO_3_PATH, Texture.class);
-        assetManager.load(FIGURA_INGENIERO_1_PATH, Texture.class);
-        assetManager.load(FIGURA_INGENIERO_2_PATH, Texture.class);
-        assetManager.load(FIGURA_INGENIERO_3_PATH, Texture.class);
+//        assetManager.load(FIGURA_ASESINO_1_PATH, Texture.class);
+//        assetManager.load(FIGURA_ASESINO_2_PATH, Texture.class);
+//        assetManager.load(FIGURA_ASESINO_3_PATH, Texture.class);
+//        assetManager.load(FIGURA_CABALLERO_1_PATH, Texture.class);
+//        assetManager.load(FIGURA_CABALLERO_2_PATH, Texture.class);
+//        assetManager.load(FIGURA_CABALLERO_3_PATH, Texture.class);
+//        assetManager.load(FIGURA_INGENIERO_1_PATH, Texture.class);
+//        assetManager.load(FIGURA_INGENIERO_2_PATH, Texture.class);
+//        assetManager.load(FIGURA_INGENIERO_3_PATH, Texture.class);
         assetManager.load(FIGURA_SACERDOTE_1_PATH, Texture.class);
         assetManager.load(FIGURA_SACERDOTE_2_PATH, Texture.class);
         assetManager.load(FIGURA_SACERDOTE_3_PATH, Texture.class);
@@ -507,8 +499,6 @@ public class Assets {
         assetManager.load(ACTIVADOR_ROMBO_3_PATH, Texture.class);
         assetManager.load(ACTIVADOR_ROMBO_4_PATH, Texture.class);
         assetManager.load(ACTIVADOR_ROMBO_5_PATH, Texture.class);
-        assetManager.load(INSTRUCCIONES_PATH, com.badlogic.gdx.utils.JsonValue.class);
-        assetManager.load(CREDITOS_PATH, com.badlogic.gdx.utils.JsonValue.class);
 
         // … más assets
         assetManager.finishLoading();
