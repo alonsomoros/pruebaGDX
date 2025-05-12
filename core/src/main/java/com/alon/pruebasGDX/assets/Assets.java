@@ -7,9 +7,193 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Assets {
 
     public static final AssetManager assetManager = new AssetManager();
+
+    private static final Map<String, Class<?>> assetTypes = new HashMap<>();
+    private static final Map<String, AssetCategory> assetCategories = new HashMap<>();
+
+    static {
+        // Configura los tipos de cada asset
+        initializeAssetTypes();
+        // Configura la categoría de cada asset
+        initializeAssetCategories();
+    }
+
+    private static void initializeAssetTypes() {
+        assetTypes.put(MAIN_TITLE_LABEL_PATH, Texture.class);
+        assetTypes.put(FUENTE_PIXEL_TTF_PATH, com.badlogic.gdx.graphics.g2d.BitmapFont.class);
+        assetTypes.put(FUENTE_PIXEL_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_MAIN_MENU_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_SUELO_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_WHEELS_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_MINIGAME_PATH, Texture.class);
+        assetTypes.put(FIGURA_MAGO_1_PATH, Texture.class);
+        assetTypes.put(FIGURA_MAGO_2_PATH, Texture.class);
+        assetTypes.put(FIGURA_MAGO_3_PATH, Texture.class);
+        assetTypes.put(FIGURA_ARQUERO_1_PATH, Texture.class);
+        assetTypes.put(FIGURA_ARQUERO_2_PATH, Texture.class);
+        assetTypes.put(FIGURA_ARQUERO_3_PATH, Texture.class);
+        assetTypes.put(FIGURA_ASESINO_1_PATH, Texture.class);
+        assetTypes.put(FIGURA_ASESINO_2_PATH, Texture.class);
+        assetTypes.put(FIGURA_ASESINO_3_PATH, Texture.class);
+        assetTypes.put(FIGURA_CABALLERO_1_PATH, Texture.class);
+        assetTypes.put(FIGURA_CABALLERO_2_PATH, Texture.class);
+        assetTypes.put(FIGURA_CABALLERO_3_PATH, Texture.class);
+        assetTypes.put(FIGURA_INGENIERO_1_PATH, Texture.class);
+        assetTypes.put(FIGURA_INGENIERO_2_PATH, Texture.class);
+        assetTypes.put(FIGURA_INGENIERO_3_PATH, Texture.class);
+        assetTypes.put(FIGURA_SACERDOTE_1_PATH, Texture.class);
+        assetTypes.put(FIGURA_SACERDOTE_2_PATH, Texture.class);
+        assetTypes.put(FIGURA_SACERDOTE_3_PATH, Texture.class);
+        assetTypes.put(MAIN_MENU_MUSIC_PATH, Music.class);
+        assetTypes.put(MINIGAME_MUSIC_PATH, Music.class);
+        assetTypes.put(WHEELS_MUSIC_PATH, Music.class);
+        assetTypes.put(FIREBALL_SOUND_1_PATH, Sound.class);
+        assetTypes.put(FIREBALL_SOUND_2_PATH, Sound.class);
+        assetTypes.put(WATERBALL_SOUND_1_PATH, Sound.class);
+        assetTypes.put(WATERBALL_SOUND_2_PATH, Sound.class);
+        assetTypes.put(BUTTON_EFFECT_PATH, Sound.class);
+        assetTypes.put(LEVEL_UP_SOUND_PATH, Sound.class);
+        assetTypes.put(LEVEL_DOWN_SOUND_PATH, Sound.class);
+        assetTypes.put(BUTTON_NUEVAPARTIDA_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
+        assetTypes.put(BUTTON_MINIGAME_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
+        assetTypes.put(FIREBALL_ATLAS_PATH, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
+        assetTypes.put(FIREBALL_1_PATH, Texture.class);
+        assetTypes.put(FIREBALL_2_PATH, Texture.class);
+        assetTypes.put(FIREBALL_3_PATH, Texture.class);
+        assetTypes.put(FIREBALL_SPRITESHEET_PATH, Texture.class);
+        assetTypes.put(WATERBALL_ATLAS_PATH, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
+        assetTypes.put(WATERBALL_1_PATH, Texture.class);
+        assetTypes.put(WATERBALL_2_PATH, Texture.class);
+        assetTypes.put(WATERBALL_3_PATH, Texture.class);
+        assetTypes.put(WATERBALL_SPRITESHEET_PATH, Texture.class);
+        assetTypes.put(STATS_VACIO_PATH, Texture.class);
+        assetTypes.put(STATS_GUERRERROS_PATH, Texture.class);
+        assetTypes.put(STATS_SACERDOTE_PATH, Texture.class);
+        assetTypes.put(STATS_ASESINO_PATH, Texture.class);
+        assetTypes.put(BASTION_1_PATH, Texture.class);
+        assetTypes.put(BASTION_2_PATH, Texture.class);
+        assetTypes.put(BASTION_3_PATH, Texture.class);
+        assetTypes.put(BASTION_4_PATH, Texture.class);
+        assetTypes.put(BASTION_5_PATH, Texture.class);
+        assetTypes.put(ROMBO_NORMAL_1_PATH, Texture.class);
+        assetTypes.put(ROMBO_NORMAL_2_PATH, Texture.class);
+        assetTypes.put(ROMBO_NORMAL_3_PATH, Texture.class);
+        assetTypes.put(ROMBO_NORMAL_LATERAL_1_PATH, Texture.class);
+        assetTypes.put(ROMBO_NORMAL_LATERAL_2_PATH, Texture.class);
+        assetTypes.put(ROMBO_NORMAL_LATERAL_3_PATH, Texture.class);
+        assetTypes.put(ROMBO_NIVEL_1_PATH, Texture.class);
+        assetTypes.put(ROMBO_NIVEL_2_PATH, Texture.class);
+        assetTypes.put(ROMBO_NIVEL_3_PATH, Texture.class);
+        assetTypes.put(ROMBO_NIVEL_LATERAL_1_PATH, Texture.class);
+        assetTypes.put(ROMBO_NIVEL_LATERAL_2_PATH, Texture.class);
+        assetTypes.put(ROMBO_NIVEL_LATERAL_3_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NORMAL_1_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NORMAL_2_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NORMAL_3_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NORMAL_LATERAL_1_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NORMAL_LATERAL_2_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NORMAL_LATERAL_3_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NIVEL_1_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NIVEL_2_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NIVEL_3_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NIVEL_LATERAL_1_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NIVEL_LATERAL_2_PATH, Texture.class);
+        assetTypes.put(CUADRADO_NIVEL_LATERAL_3_PATH, Texture.class);
+        assetTypes.put(MARTILLO_1_PATH, Texture.class);
+        assetTypes.put(MARTILLO_2_PATH, Texture.class);
+        assetTypes.put(MARTILLO_3_PATH, Texture.class);
+        assetTypes.put(MARTILLO_LATERAL_1_PATH, Texture.class);
+        assetTypes.put(MARTILLO_LATERAL_2_PATH, Texture.class);
+        assetTypes.put(MARTILLO_LATERAL_3_PATH, Texture.class);
+        assetTypes.put(ROTO_PATH, Texture.class);
+        assetTypes.put(ROTO_LATERAL_PATH, Texture.class);
+        assetTypes.put(GIRARRODILLO_PATH, Texture.class);
+        assetTypes.put(FIJADOR_PATH, Texture.class);
+        assetTypes.put(ATAQUE_ARQUERO_PATH, Texture.class);
+        assetTypes.put(ATAQUE_ASESINO_PATH, Texture.class);
+        assetTypes.put(ATAQUE_CABALLERO_PATH, Texture.class);
+        assetTypes.put(ATAQUE_INGENIERO_PATH, Texture.class);
+        assetTypes.put(ATAQUE_MAGO_PATH, Texture.class);
+        assetTypes.put(ATAQUE_SACERDOTE_PATH, Texture.class);
+        assetTypes.put(ATAQUE_ESPECIAL_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_0_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_1_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_1_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_2_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_3_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_4_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_5_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_CUADRADO_6_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_0_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_1_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_2_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_3_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_4_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_5_PATH, Texture.class);
+        assetTypes.put(BASE_FIGURA_ROMBO_6_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_CUADRADO_0_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_CUADRADO_1_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_CUADRADO_2_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_CUADRADO_3_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_CUADRADO_4_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_CUADRADO_5_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_ROMBO_0_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_ROMBO_1_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_ROMBO_2_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_ROMBO_3_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_ROMBO_4_PATH, Texture.class);
+        assetTypes.put(ACTIVADOR_ROMBO_5_PATH, Texture.class);
+        assetTypes.put(INSTRUCCIONES_PATH, com.badlogic.gdx.utils.JsonValue.class);
+        assetTypes.put(CREDITOS_PATH, com.badlogic.gdx.utils.JsonValue.class);
+    }
+
+    private static void initializeAssetCategories() {
+
+        assetCategories.put(BACKGROUND_MAIN_MENU_PATH, AssetCategory.MAIN_MENU);
+    }
+
+    public static void loadCategory(AssetCategory category) {
+        Gdx.app.log("Assets", "Cargando assets de categoría: " + category);
+
+        for (Map.Entry<String, AssetCategory> entry : assetCategories.entrySet()) {
+            if (entry.getValue() == category) {
+                String path = entry.getKey();
+                Class<?> type = assetTypes.get(path);
+                if (type != null && !assetManager.isLoaded(path)) {
+                    assetManager.load(path, type);
+                }
+            }
+        }
+
+        // Termina la carga de esta categoría
+        assetManager.finishLoading();
+        Gdx.app.log("Assets", "Categoría " + category + " cargada");
+    }
+
+    // Descargar todos los assets de una categoría
+    public static void unloadCategory(AssetCategory category) {
+        Gdx.app.log("Assets", "Descargando assets de categoría: " + category);
+
+        for (Map.Entry<String, AssetCategory> entry : assetCategories.entrySet()) {
+            if (entry.getValue() == category && entry.getValue() != AssetCategory.COMMON) {
+                String path = entry.getKey();
+                if (assetManager.isLoaded(path)) {
+                    assetManager.unload(path);
+                }
+            }
+        }
+    }
+
+    public static void loadCommon() {
+        // Cargar solo los assets comunes al inicio
+        loadCategory(AssetCategory.COMMON);
+    }
 
     // BACKGROUND
     public static final String
