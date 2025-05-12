@@ -1,6 +1,7 @@
 package com.alon.pruebasGDX.screens;
 
 import com.alon.pruebasGDX.Prueba1;
+import com.alon.pruebasGDX.assets.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -19,6 +20,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     public BaseScreen(Prueba1 game) {
         this.game = game;
+        Assets.pruebaLoadCategory(this);
 
         // Cámara ortográfica para mundo 2D
         camera = new OrthographicCamera();

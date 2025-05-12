@@ -1,5 +1,6 @@
 package com.alon.pruebasGDX;
 
+import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.screens.MainMenuScreen;
 import com.alon.pruebasGDX.utils.Settings;
@@ -37,10 +38,7 @@ public class Prueba1 extends Game {
         Settings.load();
 
         // Iniciar carga de recursos
-        Assets.load();
-
-        // Cargar recursos
-        Assets.finishLoading();
+        Assets.loadCategory(AssetCategory.COMMON);
 
         Texture fuentePixel = Assets.assetManager.get(Assets.FUENTE_PIXEL_PNG_PATH, Texture.class);
         fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);

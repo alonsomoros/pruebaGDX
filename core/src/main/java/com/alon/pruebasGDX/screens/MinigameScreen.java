@@ -1,5 +1,6 @@
 package com.alon.pruebasGDX.screens;
 
+import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.minigame.FiguraMinigame;
 import com.alon.pruebasGDX.minigame.ScoreManagerMinigame;
 import com.alon.pruebasGDX.minigame.proyectiles.Fireball;
@@ -34,6 +35,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
 
     public MinigameScreen(Prueba1 game) {
         super(game);
+//        Assets.loadCategory(AssetCategory.MINIGAME);
         this.minigameMusic = Assets.assetManager.get(Assets.MINIGAME_MUSIC_PATH);
         this.magoFigura = new FiguraMinigame();
         this.scoreManager = new ScoreManagerMinigame(magoFigura);
@@ -142,6 +144,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
         minigameMusic.dispose();
         projectileManager.dispose();
         stage.dispose();
+        Assets.unloadCategory(AssetCategory.MINIGAME);
     }
 
     // Métodos de InputProcessor

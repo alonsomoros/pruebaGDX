@@ -1,23 +1,21 @@
 package com.alon.pruebasGDX.screens;
 
 import com.alon.pruebasGDX.Prueba1;
+import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class GameScreen extends BaseScreen {
+public class WheelsScreen extends BaseScreen {
 
     private final Music minigameMusic;
 
-    public GameScreen(Prueba1 game) {
+    public WheelsScreen(Prueba1 game) {
         super(game);
-        this.minigameMusic = Assets.assetManager.get(Assets.MINIGAME_MUSIC_PATH);
+//        Assets.loadCategory(AssetCategory.WHEELS);
+        this.minigameMusic = Assets.assetManager.get(Assets.WHEELS_MUSIC_PATH);
     }
 
     @Override
@@ -108,6 +106,7 @@ public class GameScreen extends BaseScreen {
         minigameMusic.stop();
         minigameMusic.dispose();
         stage.dispose();
+        Assets.unloadCategory(AssetCategory.WHEELS);
     }
 
     // Métodos de InputProcessor

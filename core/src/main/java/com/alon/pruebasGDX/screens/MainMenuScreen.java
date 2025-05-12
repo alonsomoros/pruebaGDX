@@ -1,5 +1,6 @@
 package com.alon.pruebasGDX.screens;
 
+import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.utils.Settings;
@@ -24,7 +25,8 @@ public class MainMenuScreen extends BaseScreen {
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
-        this.mainMenuMusic = Assets.assetManager.get(Assets.MAIN_MENU_MUSIC_PATH);
+//        Assets.loadCategory(AssetCategory.MAIN_MENU);
+        this.mainMenuMusic = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
     }
 
     @Override
@@ -128,6 +130,7 @@ public class MainMenuScreen extends BaseScreen {
         mainMenuMusic.dispose();
         stage.dispose();
         titleSprite.getTexture().dispose();
+        Assets.unloadCategory(AssetCategory.MAIN_MENU);
     }
 
     // Métodos de InputProcessor
@@ -148,7 +151,7 @@ public class MainMenuScreen extends BaseScreen {
     // Métodos de creación de UI
 
     private void createTitle(Table mainTable) {
-        Texture title_label = Assets.getTexture(Assets.MAIN_TITLE_LABEL_PATH);
+        Texture title_label = Assets.getTexture(Assets.MAIN_MENU_TITLE_LABEL_PATH);
         titleSprite = new Sprite(title_label);
     }
 
@@ -174,7 +177,7 @@ public class MainMenuScreen extends BaseScreen {
                 Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Nueva partida", "Click en Nueva partida");
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new WheelsScreen(game));
             }
         });
     }
