@@ -3,7 +3,7 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
-			file: C:/Users/Alonso/Downloads/reanudar_Up.9.png
+			file: C:/Users/Alonso/IdeaProjects/pruebaGDX/assets/labels/9patch/reanudar_Up.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -23,7 +23,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/Alonso/Downloads/reanudar_Pressed.9.png
+			file: C:/Users/Alonso/IdeaProjects/pruebaGDX/assets/labels/9patch/reanudar_Pressed.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1638,7 +1638,7 @@ jsonData: {
 preferences: {
 	id: {
 		class: java.lang.Integer
-		value: 268583561
+		value: 529090545
 	}
 	preview-bg-color: {
 		class: com.badlogic.gdx.graphics.Color

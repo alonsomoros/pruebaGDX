@@ -3,47 +3,7 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
-			file: C:/Users/Alonso/Downloads/reanudar_Up.9.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: reanudar_Up
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: null
-			tvgData: null
-			type: NINE_PATCH
-			hidden: false
-		}
-		{
-			file: C:/Users/Alonso/Downloads/reanudar_Pressed.9.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: reanudar_Pressed
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: null
-			tvgData: null
-			type: NINE_PATCH
-			hidden: false
-		}
-		{
-			file: C:/Users/Alonso/Downloads/nuevaPartida_Up.9.png
+			file: C:/Users/Alonso/IdeaProjects/pruebaGDX/assets/labels/9patch/nuevaPartida_Up.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -63,7 +23,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/Alonso/Downloads/nuevaPartida_Pressed.9.png
+			file: C:/Users/Alonso/IdeaProjects/pruebaGDX/assets/labels/9patch/nuevaPartida_Pressed.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1678,7 +1638,7 @@ jsonData: {
 preferences: {
 	id: {
 		class: java.lang.Integer
-		value: 268583561
+		value: 231050962
 	}
 	preview-bg-color: {
 		class: com.badlogic.gdx.graphics.Color
@@ -1686,10 +1646,6 @@ preferences: {
 		g: 0
 		b: 0
 		a: 1
-	}
-	last-import-export-path: {
-		class: java.lang.String
-		value: C:/Users/Alonso/IdeaProjects/pruebaGDX/assets/buttons/uiskin_reanudar/uiskin_reanudar.json
 	}
 	resources-relative: {
 		class: java.lang.Boolean
