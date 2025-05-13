@@ -1,13 +1,10 @@
 package com.alon.pruebasGDX.screens;
 
-import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.Prueba1;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,7 +21,6 @@ public class MainMenuScreen extends BaseScreen {
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
-//        Assets.loadCategory(AssetCategory.MAIN_MENU);
         this.music = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
     }
 
@@ -33,12 +29,11 @@ public class MainMenuScreen extends BaseScreen {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        createTitle(mainTable);
-        createStartWheelsButton(mainTable);
-        mainTable.row();
-        createStartMiniGameButton(mainTable);
-        mainTable.row();
-        createResumeWheelsButton(mainTable);
+        createTitle();
+
+        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH, Skin.class));
+        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH, Skin.class));
+        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH, Skin.class));
 
         stage.addActor(mainTable);// Después la pantalla (para teclas)
     }
@@ -125,18 +120,17 @@ public class MainMenuScreen extends BaseScreen {
 
     // Métodos de creación de UI
 
-    private void createTitle(Table mainTable) {
+    private void createTitle() {
         Texture title_label = Assets.getTexture(Assets.MAIN_MENU_TITLE_LABEL_PATH);
         titleSprite = new Sprite(title_label);
     }
 
-    private void createStartWheelsButton(Table mainTable) {
-        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH);
-        Button buttonStart = new Button(skinButtonLabel);
-        mainTable.add(buttonStart).center().height(70).width(220); // Centrar y añadir margen superior
+    public void createButton(Table table, Skin skin) {
+        Button button = new Button(skin);
+        table.padTop(50).add(button).center().row(); // Botón más pequeño y centrado // Centrar y añadir margen superior
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
-        buttonStart.addListener(new ClickListener() {
+        button.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
@@ -151,63 +145,7 @@ public class MainMenuScreen extends BaseScreen {
             public void clicked(InputEvent event, float x, float y) {
                 Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
-                Gdx.app.log("Nueva partida", "Click en Nueva partida");
-                game.showWheels();
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            }
-        });
-    }
-
-    private void createStartMiniGameButton(Table mainTable) {
-        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH);
-        Button buttonMinigame = new Button(skinButtonLabel);
-        mainTable.add(buttonMinigame).center().height(70).width(290); // Centrar y añadir margen superior
-
-        // Añade un listener que intercambie el color al entrar/salir y gestione el clic
-        buttonMinigame.addListener(new ClickListener() {
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
-            }
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
-            }
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
-                Assets.playSound(level_up_sound);
-                Gdx.app.log("Minigame", "Click en Minigame");
-                game.showMinigame();
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            }
-        });
-    }
-
-    private void createResumeWheelsButton(Table mainTable) {
-        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH);
-        Button buttonResume = new Button(skinButtonLabel);
-        mainTable.add(buttonResume).center().height(70).width(290); // Centrar y añadir margen superior
-
-        // Añade un listener que intercambie el color al entrar/salir y gestione el clic
-        buttonResume.addListener(new ClickListener() {
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
-            }
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
-            }
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
-                Assets.playSound(level_up_sound);
-                Gdx.app.log("Minigame", "Click en Minigame");
+                Gdx.app.log(button.getName(), "Click en " + button.getName());
                 game.showWheels();
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }

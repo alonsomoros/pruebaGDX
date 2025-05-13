@@ -30,7 +30,7 @@ public class Assets {
 
     // BACKGROUND
     public static final String
-        BACKGROUND_MAIN_MENU_PATH = "background/tienda.png",
+        BACKGROUND_MAIN_MENU_PATH = "background/acantilado.png",
         BACKGROUND_MINIGAME_PATH = "background/cielo.png",
         BACKGROUND_WHEELS_PATH = "background/tablero.png",
         BACKGROUND_SUELO_PATH = "background/suelo.png";

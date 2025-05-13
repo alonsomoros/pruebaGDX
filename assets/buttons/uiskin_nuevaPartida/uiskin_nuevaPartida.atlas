@@ -2,20 +2,21 @@
 uiskin_nuevaPartida.png
 size: 512, 512
 format: RGBA8888
+filter: Linear, Linear
 repeat: none
-NuevaPartida_Label_Down
+nuevaPartida_Pressed
   rotate: false
-  xy: 1, 221
-  size: 416, 96
-  split: 23, 22, 28, 17
-  orig: 416, 96
+  xy: 1, 264
+  size: 373, 53
+  split: 0, 374, 0, 54
+  orig: 373, 53
   offset: 0, 0
   index: -1
-NuevaPartida_Label_Pressed
+nuevaPartida_Up
   rotate: false
   xy: 1, 319
-  size: 416, 96
-  split: 19, 18, 24, 13
-  orig: 416, 96
+  size: 373, 53
+  split: 0, 374, 0, 54
+  orig: 373, 53
   offset: 0, 0
   index: -1

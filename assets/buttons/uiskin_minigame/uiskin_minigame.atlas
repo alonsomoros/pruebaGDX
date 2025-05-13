@@ -4,21 +4,19 @@ size: 512, 512
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-Minigame_Label_Pressed
+minigame_Pressed
   rotate: false
-  xy: 1, 221
-  size: 416, 96
-  split: 77, 102, 17, 12
-  pad: 0, 0, 0, 0
-  orig: 416, 96
+  xy: 1, 48
+  size: 229, 59
+  split: 0, 230, 0, 60
+  orig: 229, 59
   offset: 0, 0
   index: -1
-Minigame_Label_Up
+minigame_Up
   rotate: false
-  xy: 1, 319
-  size: 416, 96
-  split: 82, 106, 22, 16
-  pad: 0, 0, 0, 0
-  orig: 416, 96
+  xy: 1, 109
+  size: 229, 59
+  split: 0, 230, 0, 60
+  orig: 229, 59
   offset: 0, 0
   index: -1
