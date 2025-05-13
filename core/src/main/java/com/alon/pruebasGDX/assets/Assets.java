@@ -30,10 +30,20 @@ public class Assets {
 
     // BACKGROUND
     public static final String
-        BACKGROUND_MAIN_MENU_PATH = "background/acantilado.png",
-        BACKGROUND_MINIGAME_PATH = "background/cielo.png",
-        BACKGROUND_WHEELS_PATH = "background/tablero.png",
-        BACKGROUND_SUELO_PATH = "background/suelo.png";
+        BACKGROUND_ACANTILADO_PNG_PATH = "background/acantilado.png",
+        BACKGROUND_ARBOL_PNG_PATH =      "background/arbol.png",
+        BACKGROUND_CASCADA_PNG_PATH =    "background/cascada.png",
+        BACKGROUND_CUEVA_PNG_PATH =      "background/cueva.png",
+        BACKGROUND_ECLIPSE_PNG_PATH =    "background/eclipse.png",
+        BACKGROUND_LUCHA_PNG_PATH =      "background/lucha.png",
+        BACKGROUND_PANTANO_PNG_PATH =    "background/pantano.png",
+        BACKGROUND_RAMA_PNG_PATH =       "background/rama.png",
+        BACKGROUND_RUINAS_PNG_PATH =     "background/ruinas.png",
+
+        BACKGROUND_MINIGAME_PATH =       "background/cielo.png",
+        BACKGROUND_WHEELS_PATH =         "background/tablero.png",
+        BACKGROUND_SUELO_PATH =          "background/suelo.png";
+
 
     // BUTTONS
     public static final String
@@ -214,7 +224,17 @@ public class Assets {
         assetTypes.put(MAIN_MENU_TITLE_LABEL_PATH, Texture.class);
         assetTypes.put(FUENTE_PIXEL_TTF_PATH, com.badlogic.gdx.graphics.g2d.BitmapFont.class);
         assetTypes.put(FUENTE_PIXEL_PNG_PATH, Texture.class);
-        assetTypes.put(BACKGROUND_MAIN_MENU_PATH, Texture.class);
+
+        assetTypes.put(BACKGROUND_ACANTILADO_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_ARBOL_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_CASCADA_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_CUEVA_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_ECLIPSE_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_LUCHA_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_PANTANO_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_RAMA_PNG_PATH, Texture.class);
+        assetTypes.put(BACKGROUND_RUINAS_PNG_PATH, Texture.class);
+
         assetTypes.put(BACKGROUND_SUELO_PATH, Texture.class);
         assetTypes.put(BACKGROUND_WHEELS_PATH, Texture.class);
         assetTypes.put(BACKGROUND_MINIGAME_PATH, Texture.class);
@@ -341,7 +361,16 @@ public class Assets {
         assetCategories.put(FUENTE_PIXEL_TTF_PATH, AssetCategory.COMMON);
         assetCategories.put(FUENTE_PIXEL_PNG_PATH, AssetCategory.COMMON);
 
-        assetCategories.put(BACKGROUND_MAIN_MENU_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_ACANTILADO_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_ARBOL_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_CASCADA_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_CUEVA_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_ECLIPSE_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_LUCHA_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_PANTANO_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_RAMA_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BACKGROUND_RUINAS_PNG_PATH, AssetCategory.MAIN_MENU);
+
         assetCategories.put(MAIN_MENU_MUSIC_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(MAIN_MENU_TITLE_LABEL_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(BUTTON_EFFECT_PATH, AssetCategory.MAIN_MENU);
