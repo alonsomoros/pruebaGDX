@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
+	"default": {
+		"up": "Reanudar_Label_Up",
+		"down": "Reanudar_Label_Up",
+		"over": "Reanudar_Label_Pressed"
+	}
+}
+}

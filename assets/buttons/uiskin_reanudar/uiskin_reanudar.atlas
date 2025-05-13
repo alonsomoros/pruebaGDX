@@ -1,0 +1,23 @@
+
+uiskin_reanudar.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Reanudar_Label_Pressed
+  rotate: false
+  xy: 1, 221
+  size: 416, 96
+  split: 82, 73, 23, 22
+  orig: 416, 96
+  offset: 0, 0
+  index: -1
+Reanudar_Label_Up
+  rotate: false
+  xy: 1, 319
+  size: 416, 96
+  split: 84, 74, 25, 24
+  pad: 84, 75, 25, 24
+  orig: 416, 96
+  offset: 0, 0
+  index: -1
