@@ -38,7 +38,8 @@ public class Assets {
     // BUTTONS
     public static final String
         BUTTON_MINIGAME_JSON_PATH = "buttons/uiskin_minigame/uiskin_minigame.json",
-        BUTTON_NUEVAPARTIDA_JSON_PATH = "buttons/uiskin_nuevaPartida/uiskin_nuevaPartida.json";
+        BUTTON_NUEVAPARTIDA_JSON_PATH = "buttons/uiskin_nuevaPartida/uiskin_nuevaPartida.json",
+        BUTTON_REANUDAR_JSON_PATH = "buttons/uiskin_reanudar/uiskin_reanudar.json";
 
     // FONTS
     public static final String
@@ -209,137 +210,6 @@ public class Assets {
         return new Texture(Gdx.files.internal(file));
     }
 
-//    public static void load() {
-//
-//        assetManager.load(MAIN_MENU_TITLE_LABEL_PATH, Texture.class);
-//        assetManager.load(FUENTE_PIXEL_TTF_PATH, com.badlogic.gdx.graphics.g2d.BitmapFont.class);
-//        assetManager.load(FUENTE_PIXEL_PNG_PATH, Texture.class);
-//        assetManager.load(BACKGROUND_MAIN_MENU_PATH, Texture.class);
-//        assetManager.load(BACKGROUND_SUELO_PATH, Texture.class);
-//        assetManager.load(BACKGROUND_WHEELS_PATH, Texture.class);
-//        assetManager.load(BACKGROUND_MINIGAME_PATH, Texture.class);
-//        assetManager.load(FIGURA_MAGO_1_PATH, Texture.class);
-//        assetManager.load(FIGURA_MAGO_2_PATH, Texture.class);
-//        assetManager.load(FIGURA_MAGO_3_PATH, Texture.class);
-//        assetManager.load(FIGURA_ARQUERO_1_PATH, Texture.class);
-//        assetManager.load(FIGURA_ARQUERO_2_PATH, Texture.class);
-//        assetManager.load(FIGURA_ARQUERO_3_PATH, Texture.class);
-////        assetManager.load(FIGURA_ASESINO_1_PATH, Texture.class);
-////        assetManager.load(FIGURA_ASESINO_2_PATH, Texture.class);
-////        assetManager.load(FIGURA_ASESINO_3_PATH, Texture.class);
-////        assetManager.load(FIGURA_CABALLERO_1_PATH, Texture.class);
-////        assetManager.load(FIGURA_CABALLERO_2_PATH, Texture.class);
-////        assetManager.load(FIGURA_CABALLERO_3_PATH, Texture.class);
-////        assetManager.load(FIGURA_INGENIERO_1_PATH, Texture.class);
-////        assetManager.load(FIGURA_INGENIERO_2_PATH, Texture.class);
-////        assetManager.load(FIGURA_INGENIERO_3_PATH, Texture.class);
-//        assetManager.load(FIGURA_SACERDOTE_1_PATH, Texture.class);
-//        assetManager.load(FIGURA_SACERDOTE_2_PATH, Texture.class);
-//        assetManager.load(FIGURA_SACERDOTE_3_PATH, Texture.class);
-//        assetManager.load(MAIN_MENU_MUSIC_PATH, Music.class);
-//        assetManager.load(MINIGAME_MUSIC_PATH, Music.class);
-//        assetManager.load(WHEELS_MUSIC_PATH, Music.class);
-//        assetManager.load(FIREBALL_SOUND_1_PATH, Sound.class);
-//        assetManager.load(FIREBALL_SOUND_2_PATH, Sound.class);
-//        assetManager.load(WATERBALL_SOUND_1_PATH, Sound.class);
-//        assetManager.load(WATERBALL_SOUND_2_PATH, Sound.class);
-//        assetManager.load(BUTTON_EFFECT_PATH, Sound.class);
-//        assetManager.load(LEVEL_UP_SOUND_PATH, Sound.class);
-//        assetManager.load(LEVEL_DOWN_SOUND_PATH, Sound.class);
-//        assetManager.load(BUTTON_NUEVAPARTIDA_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
-//        assetManager.load(BUTTON_MINIGAME_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
-//        assetManager.load(FIREBALL_ATLAS_PATH, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
-//        assetManager.load(FIREBALL_1_PATH, Texture.class);
-//        assetManager.load(FIREBALL_2_PATH, Texture.class);
-//        assetManager.load(FIREBALL_3_PATH, Texture.class);
-//        assetManager.load(FIREBALL_SPRITESHEET_PATH, Texture.class);
-//        assetManager.load(WATERBALL_ATLAS_PATH, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
-//        assetManager.load(WATERBALL_1_PATH, Texture.class);
-//        assetManager.load(WATERBALL_2_PATH, Texture.class);
-//        assetManager.load(WATERBALL_3_PATH, Texture.class);
-//        assetManager.load(WATERBALL_SPRITESHEET_PATH, Texture.class);
-//        assetManager.load(STATS_VACIO_PATH, Texture.class);
-//        assetManager.load(STATS_GUERRERROS_PATH, Texture.class);
-//        assetManager.load(STATS_SACERDOTE_PATH, Texture.class);
-//        assetManager.load(STATS_ASESINO_PATH, Texture.class);
-//        assetManager.load(BASTION_1_PATH, Texture.class);
-//        assetManager.load(BASTION_2_PATH, Texture.class);
-//        assetManager.load(BASTION_3_PATH, Texture.class);
-//        assetManager.load(BASTION_4_PATH, Texture.class);
-//        assetManager.load(BASTION_5_PATH, Texture.class);
-//        assetManager.load(ROMBO_NORMAL_1_PATH, Texture.class);
-//        assetManager.load(ROMBO_NORMAL_2_PATH, Texture.class);
-//        assetManager.load(ROMBO_NORMAL_3_PATH, Texture.class);
-//        assetManager.load(ROMBO_NORMAL_LATERAL_1_PATH, Texture.class);
-//        assetManager.load(ROMBO_NORMAL_LATERAL_2_PATH, Texture.class);
-//        assetManager.load(ROMBO_NORMAL_LATERAL_3_PATH, Texture.class);
-//        assetManager.load(ROMBO_NIVEL_1_PATH, Texture.class);
-//        assetManager.load(ROMBO_NIVEL_2_PATH, Texture.class);
-//        assetManager.load(ROMBO_NIVEL_3_PATH, Texture.class);
-//        assetManager.load(ROMBO_NIVEL_LATERAL_1_PATH, Texture.class);
-//        assetManager.load(ROMBO_NIVEL_LATERAL_2_PATH, Texture.class);
-//        assetManager.load(ROMBO_NIVEL_LATERAL_3_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NORMAL_1_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NORMAL_2_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NORMAL_3_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NORMAL_LATERAL_1_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NORMAL_LATERAL_2_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NORMAL_LATERAL_3_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NIVEL_1_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NIVEL_2_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NIVEL_3_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NIVEL_LATERAL_1_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NIVEL_LATERAL_2_PATH, Texture.class);
-//        assetManager.load(CUADRADO_NIVEL_LATERAL_3_PATH, Texture.class);
-//        assetManager.load(MARTILLO_1_PATH, Texture.class);
-//        assetManager.load(MARTILLO_2_PATH, Texture.class);
-//        assetManager.load(MARTILLO_3_PATH, Texture.class);
-//        assetManager.load(MARTILLO_LATERAL_1_PATH, Texture.class);
-//        assetManager.load(MARTILLO_LATERAL_2_PATH, Texture.class);
-//        assetManager.load(MARTILLO_LATERAL_3_PATH, Texture.class);
-//        assetManager.load(ROTO_PATH, Texture.class);
-//        assetManager.load(ROTO_LATERAL_PATH, Texture.class);
-//        assetManager.load(GIRARRODILLO_PATH, Texture.class);
-//        assetManager.load(FIJADOR_PATH, Texture.class);
-//        assetManager.load(ATAQUE_ARQUERO_PATH, Texture.class);
-//        assetManager.load(ATAQUE_ASESINO_PATH, Texture.class);
-//        assetManager.load(ATAQUE_CABALLERO_PATH, Texture.class);
-//        assetManager.load(ATAQUE_INGENIERO_PATH, Texture.class);
-//        assetManager.load(ATAQUE_MAGO_PATH, Texture.class);
-//        assetManager.load(ATAQUE_SACERDOTE_PATH, Texture.class);
-//        assetManager.load(ATAQUE_ESPECIAL_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_0_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_1_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_1_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_2_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_3_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_4_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_5_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_CUADRADO_6_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_0_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_1_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_2_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_3_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_4_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_5_PATH, Texture.class);
-//        assetManager.load(BASE_FIGURA_ROMBO_6_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_CUADRADO_0_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_CUADRADO_1_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_CUADRADO_2_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_CUADRADO_3_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_CUADRADO_4_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_CUADRADO_5_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_ROMBO_0_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_ROMBO_1_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_ROMBO_2_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_ROMBO_3_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_ROMBO_4_PATH, Texture.class);
-//        assetManager.load(ACTIVADOR_ROMBO_5_PATH, Texture.class);
-//
-//        // … más assets
-//        assetManager.finishLoading();
-//    }
-
     private static void initializeAssetTypes() {
         assetTypes.put(MAIN_MENU_TITLE_LABEL_PATH, Texture.class);
         assetTypes.put(FUENTE_PIXEL_TTF_PATH, com.badlogic.gdx.graphics.g2d.BitmapFont.class);
@@ -378,6 +248,7 @@ public class Assets {
         assetTypes.put(LEVEL_DOWN_SOUND_PATH, Sound.class);
         assetTypes.put(BUTTON_NUEVAPARTIDA_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetTypes.put(BUTTON_MINIGAME_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
+        assetTypes.put(BUTTON_REANUDAR_JSON_PATH, com.badlogic.gdx.scenes.scene2d.ui.Skin.class);
         assetTypes.put(FIREBALL_ATLAS_PATH, com.badlogic.gdx.graphics.g2d.TextureAtlas.class);
         assetTypes.put(FIREBALL_1_PATH, Texture.class);
         assetTypes.put(FIREBALL_2_PATH, Texture.class);
@@ -476,6 +347,7 @@ public class Assets {
         assetCategories.put(BUTTON_EFFECT_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(BUTTON_MINIGAME_JSON_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(BUTTON_NUEVAPARTIDA_JSON_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(BUTTON_REANUDAR_JSON_PATH, AssetCategory.MAIN_MENU);
 
         assetCategories.put(BACKGROUND_MINIGAME_PATH, AssetCategory.MINIGAME);
         assetCategories.put(BACKGROUND_SUELO_PATH, AssetCategory.MINIGAME);

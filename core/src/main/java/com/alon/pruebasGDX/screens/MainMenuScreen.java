@@ -37,6 +37,8 @@ public class MainMenuScreen extends BaseScreen {
         createStartWheelsButton(mainTable);
         mainTable.row();
         createStartMiniGameButton(mainTable);
+        mainTable.row();
+        createResumeWheelsButton(mainTable);
 
         stage.addActor(mainTable);// Después la pantalla (para teclas)
     }
@@ -131,7 +133,7 @@ public class MainMenuScreen extends BaseScreen {
     private void createStartWheelsButton(Table mainTable) {
         Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH);
         Button buttonStart = new Button(skinButtonLabel);
-        mainTable.add(buttonStart).center().height(70).width(220).padBottom(-10); // Centrar y añadir margen superior
+        mainTable.add(buttonStart).center().height(70).width(220); // Centrar y añadir margen superior
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
         buttonStart.addListener(new ClickListener() {
@@ -159,7 +161,7 @@ public class MainMenuScreen extends BaseScreen {
     private void createStartMiniGameButton(Table mainTable) {
         Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH);
         Button buttonMinigame = new Button(skinButtonLabel);
-        mainTable.add(buttonMinigame).center().height(70).width(290).padBottom(10).padLeft(15); // Centrar y añadir margen superior
+        mainTable.add(buttonMinigame).center().height(70).width(290); // Centrar y añadir margen superior
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
         buttonMinigame.addListener(new ClickListener() {
@@ -179,6 +181,34 @@ public class MainMenuScreen extends BaseScreen {
                 Assets.playSound(level_up_sound);
                 Gdx.app.log("Minigame", "Click en Minigame");
                 game.showMinigame();
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+    }
+
+    private void createResumeWheelsButton(Table mainTable) {
+        Skin skinButtonLabel = Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH);
+        Button buttonResume = new Button(skinButtonLabel);
+        mainTable.add(buttonResume).center().height(70).width(290); // Centrar y añadir margen superior
+
+        // Añade un listener que intercambie el color al entrar/salir y gestione el clic
+        buttonResume.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand); // opcional: cursor mano
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow); // opcional: cursor flecha
+            }
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
+                Assets.playSound(level_up_sound);
+                Gdx.app.log("Minigame", "Click en Minigame");
+                game.showWheels();
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
