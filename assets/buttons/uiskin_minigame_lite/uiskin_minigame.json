@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
+	"default": {
+		"up": "Minigame_Label_Up",
+		"down": "Minigame_Label_Up",
+		"over": "Minigame_Label_Pressed"
+	}
+}
+}

@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -15,13 +16,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.util.HashMap;
+
 public class MainMenuScreen extends BaseScreen {
 
     private Sprite titleSprite;
+    private int contadorBackground = 0;
+
+    static HashMap<Integer, Texture> textures = new HashMap<>();
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
         this.music = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
+        loadTextures();
     }
 
     @Override
@@ -31,9 +38,9 @@ public class MainMenuScreen extends BaseScreen {
 
         createTitle();
 
-        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH, Skin.class));
-        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH, Skin.class));
-        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH, Skin.class));
+        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH, Skin.class), "Wheels");
+        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH, Skin.class), "Wheels");
+        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH, Skin.class), "Minigame");
 
         stage.addActor(mainTable);// Después la pantalla (para teclas)
     }
@@ -54,7 +61,7 @@ public class MainMenuScreen extends BaseScreen {
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
         // Dibuja el fondo
-        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_MAIN_MENU_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(textures.get(contadorBackground), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
 
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
@@ -68,11 +75,13 @@ public class MainMenuScreen extends BaseScreen {
         stage.draw();
     }
 
-    // Métodos de Screen
 
-//    @Override
-//    public void show() {
-//    }
+    // Métodos de Screen
+    @Override
+    public void show() {
+        super.show();
+        contadorBackground = MathUtils.random(1,9);
+    }
 
     @Override
     public void render(float delta) {
@@ -103,8 +112,8 @@ public class MainMenuScreen extends BaseScreen {
         Assets.pruebaUnloadCategory(this);
     }
 
-    // Métodos de InputProcessor
 
+    // Métodos de InputProcessor
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
@@ -118,16 +127,17 @@ public class MainMenuScreen extends BaseScreen {
         return false;
     }
 
-    // Métodos de creación de UI
 
+    // Métodos de creación de UI
     private void createTitle() {
         Texture title_label = Assets.getTexture(Assets.MAIN_MENU_TITLE_LABEL_PATH);
         titleSprite = new Sprite(title_label);
     }
 
-    public void createButton(Table table, Skin skin) {
+    public void createButton(Table table, Skin skin, String name) {
         Button button = new Button(skin);
-        table.padTop(50).add(button).center().row(); // Botón más pequeño y centrado // Centrar y añadir margen superior
+        table.padTop(70).add(button).center().row(); // Añade 20px entre botones // Botón más pequeño y centrado // Centrar y añadir margen superior
+        table.defaults().spaceTop(30);
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
         button.addListener(new ClickListener() {
@@ -145,10 +155,36 @@ public class MainMenuScreen extends BaseScreen {
             public void clicked(InputEvent event, float x, float y) {
                 Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
                 Assets.playSound(level_up_sound);
-                Gdx.app.log(button.getName(), "Click en " + button.getName());
-                game.showWheels();
+                cambioPantalla(name);
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
+    }
+
+    private void cambioPantalla(String name) {
+        switch (name) {
+            case "Wheels":
+                Gdx.app.log(name, "Click en " + name);
+                game.showWheels();
+                break;
+            case "Minigame":
+                Gdx.app.log(name, "Click en " + name);
+                game.showMinigame();
+                break;
+            default:
+                Gdx.app.log("Error", "No se ha encontrado el botón: " + name);
+        }
+    }
+
+    private void loadTextures() {
+        textures.put(1, Assets.getTexture(Assets.BACKGROUND_ACANTILADO_PNG_PATH));
+        textures.put(2, Assets.getTexture(Assets.BACKGROUND_ARBOL_PNG_PATH));
+        textures.put(3, Assets.getTexture(Assets.BACKGROUND_CASCADA_PNG_PATH));
+        textures.put(4, Assets.getTexture(Assets.BACKGROUND_CUEVA_PNG_PATH));
+        textures.put(5, Assets.getTexture(Assets.BACKGROUND_ECLIPSE_PNG_PATH));
+        textures.put(6, Assets.getTexture(Assets.BACKGROUND_LUCHA_PNG_PATH));
+        textures.put(7, Assets.getTexture(Assets.BACKGROUND_PANTANO_PNG_PATH));
+        textures.put(8, Assets.getTexture(Assets.BACKGROUND_RAMA_PNG_PATH));
+        textures.put(9, Assets.getTexture(Assets.BACKGROUND_RUINAS_PNG_PATH));
     }
 }

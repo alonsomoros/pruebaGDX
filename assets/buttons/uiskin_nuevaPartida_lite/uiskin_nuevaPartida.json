@@ -1,0 +1,9 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
+	"default": {
+		"up": "NuevaPartida_Label_Down",
+		"down": "NuevaPartida_Label_Down",
+		"over": "NuevaPartida_Label_Pressed"
+	}
+}
+}

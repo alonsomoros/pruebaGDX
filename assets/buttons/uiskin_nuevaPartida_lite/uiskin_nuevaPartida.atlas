@@ -1,0 +1,21 @@
+
+uiskin_nuevaPartida.png
+size: 512, 512
+format: RGBA8888
+repeat: none
+NuevaPartida_Label_Down
+  rotate: false
+  xy: 1, 221
+  size: 416, 96
+  split: 23, 22, 28, 17
+  orig: 416, 96
+  offset: 0, 0
+  index: -1
+NuevaPartida_Label_Pressed
+  rotate: false
+  xy: 1, 319
+  size: 416, 96
+  split: 19, 18, 24, 13
+  orig: 416, 96
+  offset: 0, 0
+  index: -1

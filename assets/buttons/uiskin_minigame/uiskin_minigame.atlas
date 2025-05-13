@@ -1,12 +1,12 @@
 
 uiskin_minigame.png
-size: 512, 512
+size: 256, 256
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
 minigame_Pressed
   rotate: false
-  xy: 1, 48
+  xy: 1, 108
   size: 229, 59
   split: 0, 230, 0, 60
   orig: 229, 59
@@ -14,7 +14,7 @@ minigame_Pressed
   index: -1
 minigame_Up
   rotate: false
-  xy: 1, 109
+  xy: 1, 169
   size: 229, 59
   split: 0, 230, 0, 60
   orig: 229, 59
