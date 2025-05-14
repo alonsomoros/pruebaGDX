@@ -12,7 +12,6 @@ public class WheelsScreen extends BaseScreen {
 
     public WheelsScreen(Prueba1 game) {
         super(game);
-//        Assets.loadCategory(AssetCategory.WHEELS);
         this.music = Assets.assetManager.get(Assets.WHEELS_MUSIC_PATH);
     }
 
@@ -39,7 +38,7 @@ public class WheelsScreen extends BaseScreen {
 
     public void clearScreen() {
         GL20 gl = Gdx.gl;
-        gl.glClearColor(0.145f, 0.0078f, 0.0f, 1f);
+        gl.glClearColor(0.2f, 0.05f, 0.0f, 1f);
         gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.batcher.setProjectionMatrix(camera.combined);

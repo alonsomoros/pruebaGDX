@@ -11,6 +11,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -19,6 +20,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     protected OrthographicCamera camera;
     protected Viewport viewport;
+    protected Table table;
     protected Stage stage;
     protected Music music;
 
@@ -30,6 +32,9 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
         // FitViewport mantiene relación de aspecto
         viewport = new FitViewport(game.V_WIDTH, game.V_HEIGHT, camera);
+
+        // Inicializa la tabla para organizar los elementos de la UI
+        table = new Table();
 
         // Ajusta la cámara a la vista
         stage = new Stage(viewport, game.batcher);

@@ -16,32 +16,45 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.util.HashMap;
+
 public class MainMenuScreen extends BaseScreen {
 
     private Sprite titleSprite;
     private int contadorBackground = 0;
+    private boolean startedGame = false;
+    private HashMap<Integer, Texture> textures;
+    private HashMap<String, Button> buttons;
 
     public MainMenuScreen(Prueba1 game) {
         super(game);
+        loadTextures();
         this.music = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
     }
 
     @Override
     protected void buildUI() {
-        Table mainTable = new Table();
-        mainTable.setFillParent(true);
+        textures = new HashMap<>();
+        buttons = new HashMap<>();
+        table.setFillParent(true);
 
         createTitle();
 
-        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH, Skin.class), "Wheels");
-        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH, Skin.class), "Wheels");
-        createButton(mainTable, Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH, Skin.class), "Minigame");
+        createButton(table, Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH, Skin.class), "Wheels");
+        createButton(table, Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH, Skin.class), "Reanudar");
+        createButton(table, Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH, Skin.class), "Minigame");
+        table.add(buttons.get("Wheels"));
+        table.row();
+        table.add(buttons.get("Minigame"));
+        table.row();
 
-        stage.addActor(mainTable);// Después la pantalla (para teclas)
+        stage.addActor(table);// Después la pantalla (para teclas)
     }
 
     public void update() {
-
+        if (startedGame) {
+            table.add(buttons.get("Reanudar"));
+        }
     }
 
     float stateTime = 0f;
@@ -56,7 +69,7 @@ public class MainMenuScreen extends BaseScreen {
         game.batcher.disableBlending(); // Quita el canal alfa para dibujar el fondo
         game.batcher.begin();
         // Dibuja el fondo
-        game.batcher.draw(getTextureByContador(contadorBackground), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(textures.get(contadorBackground), 0, 0, game.V_WIDTH, game.V_HEIGHT);
         game.batcher.end();
 
         game.batcher.enableBlending(); // Vuelve a activar el canal alfa para dibujar la animación
@@ -68,32 +81,6 @@ public class MainMenuScreen extends BaseScreen {
 
         stage.act();
         stage.draw();
-    }
-
-    private Texture getTextureByContador(int contadorBackground) {
-        switch (contadorBackground) {
-            case 1:
-                return Assets.getTexture(Assets.BACKGROUND_ACANTILADO_PNG_PATH);
-            case 2:
-                return Assets.getTexture(Assets.BACKGROUND_ARBOL_PNG_PATH);
-            case 3:
-                return Assets.getTexture(Assets.BACKGROUND_CASCADA_PNG_PATH);
-            case 4:
-                return Assets.getTexture(Assets.BACKGROUND_CUEVA_PNG_PATH);
-            case 5:
-                return Assets.getTexture(Assets.BACKGROUND_ECLIPSE_PNG_PATH);
-            case 6:
-                return Assets.getTexture(Assets.BACKGROUND_LUCHA_PNG_PATH);
-            case 7:
-                return Assets.getTexture(Assets.BACKGROUND_PANTANO_PNG_PATH);
-            case 8:
-                return Assets.getTexture(Assets.BACKGROUND_RAMA_PNG_PATH);
-            case 9:
-                return Assets.getTexture(Assets.BACKGROUND_RUINAS_PNG_PATH);
-            default:
-                Gdx.app.log("Error", "No se ha encontrado el fondo: " + contadorBackground);
-                return Assets.getTexture(Assets.BACKGROUND_ARBOL_PNG_PATH);
-        }
     }
 
     // Métodos de Screen
@@ -157,7 +144,8 @@ public class MainMenuScreen extends BaseScreen {
 
     public void createButton(Table table, Skin skin, String name) {
         Button button = new Button(skin);
-        table.padTop(70).add(button).center().row(); // Añade 20px entre botones // Botón más pequeño y centrado // Centrar y añadir margen superior
+        buttons.put(name, button);
+        table.padTop(70).center().row(); // Añade 20px entre botones // Botón más pequeño y centrado // Centrar y añadir margen superior
         table.defaults().spaceTop(30);
 
         // Añade un listener que intercambie el color al entrar/salir y gestione el clic
@@ -185,8 +173,10 @@ public class MainMenuScreen extends BaseScreen {
     private void cambioPantalla(String name) {
         switch (name) {
             case "Wheels":
+            case "Reanudar":
                 Gdx.app.log(name, "Click en " + name);
                 game.showWheels();
+                startedGame = true;
                 break;
             case "Minigame":
                 Gdx.app.log(name, "Click en " + name);
@@ -195,5 +185,17 @@ public class MainMenuScreen extends BaseScreen {
             default:
                 Gdx.app.log("Error", "No se ha encontrado el botón: " + name);
         }
+    }
+
+    private void loadTextures() {
+        textures.put(1, Assets.getTexture(Assets.BACKGROUND_ACANTILADO_PNG_PATH));
+        textures.put(2, Assets.getTexture(Assets.BACKGROUND_ARBOL_PNG_PATH));
+        textures.put(3, Assets.getTexture(Assets.BACKGROUND_CASCADA_PNG_PATH));
+        textures.put(4, Assets.getTexture(Assets.BACKGROUND_CUEVA_PNG_PATH));
+        textures.put(5, Assets.getTexture(Assets.BACKGROUND_ECLIPSE_PNG_PATH));
+        textures.put(6, Assets.getTexture(Assets.BACKGROUND_LUCHA_PNG_PATH));
+        textures.put(7, Assets.getTexture(Assets.BACKGROUND_PANTANO_PNG_PATH));
+        textures.put(8, Assets.getTexture(Assets.BACKGROUND_RAMA_PNG_PATH));
+        textures.put(9, Assets.getTexture(Assets.BACKGROUND_RUINAS_PNG_PATH));
     }
 }
