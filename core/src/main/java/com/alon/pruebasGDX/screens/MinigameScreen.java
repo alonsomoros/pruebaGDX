@@ -1,6 +1,5 @@
 package com.alon.pruebasGDX.screens;
 
-import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.minigame.FiguraMinigame;
 import com.alon.pruebasGDX.minigame.ScoreManagerMinigame;
 import com.alon.pruebasGDX.minigame.proyectiles.Fireball;
@@ -13,7 +12,6 @@ import com.alon.pruebasGDX.minigame.CollisionHandler;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -122,7 +120,7 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
         super.dispose();
         projectileManager.dispose();
         stage.dispose();
-        Assets.pruebaUnloadCategory(this);
+        Assets.unloadCategory(this);
     }
 
     // Métodos de InputProcessor

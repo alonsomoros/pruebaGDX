@@ -40,9 +40,9 @@ public class MainMenuScreen extends BaseScreen {
 
         createTitle();
 
-        createButton(table, Assets.assetManager.get(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH, Skin.class), "Wheels");
-        createButton(table, Assets.assetManager.get(Assets.BUTTON_REANUDAR_JSON_PATH, Skin.class), "Reanudar");
-        createButton(table, Assets.assetManager.get(Assets.BUTTON_MINIGAME_JSON_PATH, Skin.class), "Minigame");
+        createButton(table, Assets.getSkin(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH), "Wheels");
+        createButton(table, Assets.getSkin(Assets.BUTTON_REANUDAR_JSON_PATH), "Reanudar");
+        createButton(table, Assets.getSkin(Assets.BUTTON_MINIGAME_JSON_PATH), "Minigame");
         table.add(buttons.get("Wheels"));
         table.row();
         table.add(buttons.get("Minigame"));
@@ -117,7 +117,7 @@ public class MainMenuScreen extends BaseScreen {
         super.dispose();
         stage.dispose();
         titleSprite.getTexture().dispose();
-        Assets.pruebaUnloadCategory(this);
+        Assets.unloadCategory(this);
     }
 
     // Métodos de InputProcessor

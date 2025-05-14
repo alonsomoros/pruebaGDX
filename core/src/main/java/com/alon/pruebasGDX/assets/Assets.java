@@ -532,7 +532,7 @@ public class Assets {
         Gdx.app.log("Assets", "Categoría " + category + " cargada");
     }
 
-    public static void pruebaUnloadCategory(BaseScreen screen) {
+    public static void unloadCategory(BaseScreen screen) {
         AssetCategory category = null;
         String clase = screen.getClass().getName();
         switch (clase) {
@@ -577,25 +577,6 @@ public class Assets {
         // Termina la carga de esta categoría
         assetManager.finishLoading();
         Gdx.app.log("Assets", "Categoría " + category + " cargada");
-    }
-
-    // Descargar todos los assets de una categoría
-    public static void unloadCategory(AssetCategory category) {
-        Gdx.app.log("Assets", "Descargando assets de categoría: " + category);
-
-        for (Map.Entry<String, AssetCategory> entry : assetCategories.entrySet()) {
-            if (entry.getValue() == category && entry.getValue() != AssetCategory.COMMON) {
-                String path = entry.getKey();
-                if (assetManager.isLoaded(path)) {
-                    assetManager.unload(path);
-                }
-            }
-        }
-    }
-
-    public static void finishLoading() {
-        assetManager.finishLoading(); // bloqueante
-        Gdx.app.log("Assets", "Cargados " + assetManager.getLoadedAssets() + " assets");
     }
 
     public static Texture getTexture(String name) {

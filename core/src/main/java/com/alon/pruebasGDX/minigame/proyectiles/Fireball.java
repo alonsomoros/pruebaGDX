@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Fireball extends ProyectilMinigame {
 
     public Fireball(float x, float y) {
-        textureAtlas = new TextureAtlas(Gdx.files.internal(Assets.FIREBALL_ATLAS_PATH));
+        textureAtlas = Assets.getTextureAtlas(Assets.FIREBALL_ATLAS_PATH);
         animation = new Animation<>(0.1f, textureAtlas.getRegions(), Animation.PlayMode.LOOP);
         sprite = new Sprite(animation.getKeyFrame(0));
         sprite.scale(1f);

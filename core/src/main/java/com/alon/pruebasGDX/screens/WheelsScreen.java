@@ -1,11 +1,9 @@
 package com.alon.pruebasGDX.screens;
 
 import com.alon.pruebasGDX.Prueba1;
-import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
 import com.alon.pruebasGDX.utils.Settings;
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 
 public class WheelsScreen extends BaseScreen {
@@ -80,7 +78,7 @@ public class WheelsScreen extends BaseScreen {
     public void dispose() {
         super.dispose();
         stage.dispose();
-        Assets.pruebaUnloadCategory(this);
+        Assets.unloadCategory(this);
     }
 
     // Métodos de InputProcessor
