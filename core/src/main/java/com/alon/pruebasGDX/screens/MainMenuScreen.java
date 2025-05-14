@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.HashMap;
 
@@ -36,6 +39,7 @@ public class MainMenuScreen extends BaseScreen {
     protected void buildUI() {
         textures = new HashMap<>();
         buttons = new HashMap<>();
+
         table.setFillParent(true);
 
         createTitle();
@@ -51,9 +55,19 @@ public class MainMenuScreen extends BaseScreen {
         stage.addActor(table);// Después la pantalla (para teclas)
     }
 
+    boolean debug = false;
     public void update() {
         if (startedGame) {
             table.add(buttons.get("Reanudar"));
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            if (!debug) {
+                table.debugAll();
+                debug = true;
+            } else {
+                table.setDebug(true);
+                debug = false;
+            }
         }
     }
 
@@ -76,6 +90,7 @@ public class MainMenuScreen extends BaseScreen {
         game.batcher.begin();
         // Dibuja el titulo
         game.batcher.draw(titleSprite, 250, 369, 300, 80);
+        game.batcher.draw(Assets.getTexture(Assets.MASCARA_PATH), 200, 90, 400, 250);
         stateTime += Gdx.graphics.getDeltaTime();
         game.batcher.end();
 

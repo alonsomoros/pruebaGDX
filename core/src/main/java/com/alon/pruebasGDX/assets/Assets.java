@@ -42,7 +42,9 @@ public class Assets {
 
         BACKGROUND_MINIGAME_PATH =       "background/cielo.png",
         BACKGROUND_WHEELS_PATH =         "background/tablero.png",
-        BACKGROUND_SUELO_PATH =          "background/suelo.png";
+        BACKGROUND_SUELO_PATH =          "background/suelo.png",
+
+        MASCARA_PATH = "labels/mascara.png";
 
 
     // BUTTONS
@@ -234,6 +236,7 @@ public class Assets {
         assetTypes.put(BACKGROUND_PANTANO_PNG_PATH, Texture.class);
         assetTypes.put(BACKGROUND_RAMA_PNG_PATH, Texture.class);
         assetTypes.put(BACKGROUND_RUINAS_PNG_PATH, Texture.class);
+        assetTypes.put(MASCARA_PATH, Texture.class);
 
         assetTypes.put(BACKGROUND_SUELO_PATH, Texture.class);
         assetTypes.put(BACKGROUND_WHEELS_PATH, Texture.class);
@@ -360,6 +363,7 @@ public class Assets {
     private static void initializeAssetCategories() {
         assetCategories.put(FUENTE_PIXEL_TTF_PATH, AssetCategory.COMMON);
         assetCategories.put(FUENTE_PIXEL_PNG_PATH, AssetCategory.COMMON);
+        assetCategories.put(BACKGROUND_ARBOL_PNG_PATH, AssetCategory.COMMON);
 
         assetCategories.put(BACKGROUND_ACANTILADO_PNG_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(BACKGROUND_ARBOL_PNG_PATH, AssetCategory.MAIN_MENU);
@@ -370,6 +374,7 @@ public class Assets {
         assetCategories.put(BACKGROUND_PANTANO_PNG_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(BACKGROUND_RAMA_PNG_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(BACKGROUND_RUINAS_PNG_PATH, AssetCategory.MAIN_MENU);
+        assetCategories.put(MASCARA_PATH, AssetCategory.MAIN_MENU);
 
         assetCategories.put(MAIN_MENU_MUSIC_PATH, AssetCategory.MAIN_MENU);
         assetCategories.put(MAIN_MENU_TITLE_LABEL_PATH, AssetCategory.MAIN_MENU);
