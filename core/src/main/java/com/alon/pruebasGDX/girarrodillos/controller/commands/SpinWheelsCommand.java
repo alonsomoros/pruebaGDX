@@ -1,17 +1,18 @@
 package com.alon.pruebasGDX.girarrodillos.controller.commands;
 
 import com.alon.pruebasGDX.girarrodillos.model.wheel.Wheel;
+import com.alon.pruebasGDX.girarrodillos.model.wheel.WheelSet;
 
 public class SpinWheelsCommand implements Command {
 
-    private Wheel wheel;
+    private WheelSet wheelSet;
 
-    public SpinWheelsCommand(Wheel wheel) {
-        this.wheel = wheel;
+    public SpinWheelsCommand(WheelSet wheelSet) {
+        this.wheelSet = wheelSet;
     }
 
     @Override
     public void execute() {
-        wheel.spin();
+        wheelSet.spin();
     }
 }

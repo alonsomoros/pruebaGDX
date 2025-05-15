@@ -112,7 +112,7 @@ public class FiguraMinigame implements GameElement {
         // Restaurar posición y establecer tamaño constante
         this.sprite.setPosition(oldX, oldY);
         this.sprite.setSize(125f, 145f);
-        Assets.getSound(Assets.LEVEL_UP_SOUND_PATH).play(0.2f);
+        Assets.getInstance().getSound(Assets.LEVEL_UP_SOUND_PATH).play(0.2f);
     }
 
     public void bajarNivel() {
@@ -148,7 +148,7 @@ public class FiguraMinigame implements GameElement {
         // Restaurar posición y establecer tamaño constante
         this.sprite.setPosition(oldX, oldY);
         this.sprite.setSize(125f, 145f);
-        Assets.getSound(Assets.LEVEL_DOWN_SOUND_PATH).play(0.2f);
+        Assets.getInstance().getSound(Assets.LEVEL_DOWN_SOUND_PATH).play(0.2f);
     }
 
     public Rectangle getHitbox() {

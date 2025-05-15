@@ -2,6 +2,7 @@ package com.alon.pruebasGDX;
 
 import com.alon.pruebasGDX.assets.AssetCategory;
 import com.alon.pruebasGDX.assets.Assets;
+import com.alon.pruebasGDX.girarrodillos.utils.Constants;
 import com.alon.pruebasGDX.screens.MainMenuScreen;
 import com.alon.pruebasGDX.screens.MinigameScreen;
 import com.alon.pruebasGDX.screens.WheelsScreen;
@@ -19,10 +20,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Prueba1 extends Game {
 
     public static final String TITLE = "pruebasGDX";
-    public static final String VERSION = "v.0.0.0.0";
+    public static final String VERSION = "v.0.0.9";
 
-    public final int V_WIDTH = 800;
-    public final int V_HEIGHT = 500;
+    public final int V_WIDTH = Constants.SCREEN_WIDTH;
+    public final int V_HEIGHT = Constants.SCREEN_HEIGHT;
 
     private MainMenuScreen mainMenuScreen;
     private MinigameScreen minigameScreen;
@@ -96,6 +97,6 @@ public class Prueba1 extends Game {
         mainMenuScreen.dispose();
         wheelsScreen.dispose();
         minigameScreen.dispose();
-        Assets.dispose();
+        Assets.getInstance().dispose();
     }
 }

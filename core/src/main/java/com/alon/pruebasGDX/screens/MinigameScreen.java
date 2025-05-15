@@ -78,12 +78,12 @@ public class MinigameScreen extends BaseScreen implements CollisionHandler {
     private void drawBackground() {
         game.batcher.disableBlending();
         game.batcher.begin();
-        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_MINIGAME_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
-        game.batcher.draw(Assets.getTexture(Assets.BACKGROUND_SUELO_PATH), 0, 0, game.V_WIDTH,
-                Assets.getTexture(Assets.BACKGROUND_SUELO_PATH).getHeight());
-        Texture fuentePixel = Assets.getTexture(Assets.FUENTE_PIXEL_PNG_PATH);
+        game.batcher.draw(Assets.getInstance().getTexture(Assets.BACKGROUND_MINIGAME_PATH), 0, 0, game.V_WIDTH, game.V_HEIGHT);
+        game.batcher.draw(Assets.getInstance().getTexture(Assets.BACKGROUND_SUELO_PATH), 0, 0, game.V_WIDTH,
+                Assets.getInstance().getTexture(Assets.BACKGROUND_SUELO_PATH).getHeight());
+        Texture fuentePixel = Assets.getInstance().getTexture(Assets.FUENTE_PIXEL_PNG_PATH);
         fuentePixel.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        BitmapFont bf = Assets.getBitmapFont(Assets.FUENTE_PIXEL_TTF_PATH);
+        BitmapFont bf = Assets.getInstance().getBitmapFont(Assets.FUENTE_PIXEL_TTF_PATH);
         bf.getData().setScale(1f);
         bf.draw(game.batcher, "Puntuacion: " + scoreManager.getPuntuacion(), 10, game.V_HEIGHT - 10);
         game.batcher.end();

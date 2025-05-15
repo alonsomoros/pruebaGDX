@@ -16,6 +16,16 @@ import java.util.Map;
 
 public class Assets {
 
+    public static Assets instance;
+
+    public static Assets getInstance() {
+        if (instance == null) {
+            instance = new Assets();
+        }
+        return instance;
+    }
+
+
     public static final AssetManager assetManager = new AssetManager();
 
     private static final Map<String, Class<?>> assetTypes = new HashMap<>();
@@ -584,35 +594,35 @@ public class Assets {
         Gdx.app.log("Assets", "Categoría " + category + " cargada");
     }
 
-    public static Texture getTexture(String name) {
+    public Texture getTexture(String name) {
         return assetManager.get(name, Texture.class);
     }
 
-    public static Sound getSound(String name) {
+    public Sound getSound(String name) {
         return assetManager.get(name, Sound.class);
     }
 
-    public static Music getMusic(String name) {
+    public Music getMusic(String name) {
         return assetManager.get(name, Music.class);
     }
 
-    public static Skin getSkin(String name) {
+    public Skin getSkin(String name) {
         return assetManager.get(name, Skin.class);
     }
 
-    public static TextureAtlas getTextureAtlas(String name) {
+    public TextureAtlas getTextureAtlas(String name) {
         return assetManager.get(name, TextureAtlas.class);
     }
 
-    public static BitmapFont getBitmapFont(String name) {
+    public BitmapFont getBitmapFont(String name) {
         return assetManager.get(name, BitmapFont.class);
     }
 
-    public static void dispose() {
+    public void dispose() {
         assetManager.dispose();
     }
 
-    public static void playSound(Sound sound) {
+    public void playSound(Sound sound) {
         if (Settings.soundEnabled) sound.play(1);
     }
 

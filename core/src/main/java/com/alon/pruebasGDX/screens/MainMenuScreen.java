@@ -32,7 +32,7 @@ public class MainMenuScreen extends BaseScreen {
     public MainMenuScreen(Prueba1 game) {
         super(game);
         loadTextures();
-        this.music = Assets.getMusic(Assets.MAIN_MENU_MUSIC_PATH);
+        this.music = Assets.getInstance().getMusic(Assets.MAIN_MENU_MUSIC_PATH);
     }
 
     @Override
@@ -44,9 +44,9 @@ public class MainMenuScreen extends BaseScreen {
 
         createTitle();
 
-        createButton(table, Assets.getSkin(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH), "Wheels");
-        createButton(table, Assets.getSkin(Assets.BUTTON_REANUDAR_JSON_PATH), "Reanudar");
-        createButton(table, Assets.getSkin(Assets.BUTTON_MINIGAME_JSON_PATH), "Minigame");
+        createButton(table, Assets.getInstance().getSkin(Assets.BUTTON_NUEVAPARTIDA_JSON_PATH), "Wheels");
+        createButton(table, Assets.getInstance().getSkin(Assets.BUTTON_REANUDAR_JSON_PATH), "Reanudar");
+        createButton(table, Assets.getInstance().getSkin(Assets.BUTTON_MINIGAME_JSON_PATH), "Minigame");
         table.add(buttons.get("Wheels"));
         table.row();
         table.add(buttons.get("Minigame"));
@@ -90,7 +90,7 @@ public class MainMenuScreen extends BaseScreen {
         game.batcher.begin();
         // Dibuja el titulo
         game.batcher.draw(titleSprite, 250, 369, 300, 80);
-        game.batcher.draw(Assets.getTexture(Assets.MASCARA_PATH), 200, 90, 400, 250);
+        game.batcher.draw(Assets.getInstance().getTexture(Assets.MASCARA_PATH), 200, 90, 400, 250);
         stateTime += Gdx.graphics.getDeltaTime();
         game.batcher.end();
 
@@ -153,7 +153,7 @@ public class MainMenuScreen extends BaseScreen {
     // Métodos de creación de UI
 
     private void createTitle() {
-        Texture title_label = Assets.getTexture(Assets.MAIN_MENU_TITLE_LABEL_PATH);
+        Texture title_label = Assets.getInstance().getTexture(Assets.MAIN_MENU_TITLE_LABEL_PATH);
         titleSprite = new Sprite(title_label);
     }
 
@@ -178,7 +178,7 @@ public class MainMenuScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Sound level_up_sound = Assets.assetManager.get(Assets.BUTTON_EFFECT_PATH);
-                Assets.playSound(level_up_sound);
+                Assets.getInstance().playSound(level_up_sound);
                 cambioPantalla(name);
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -203,14 +203,14 @@ public class MainMenuScreen extends BaseScreen {
     }
 
     private void loadTextures() {
-        textures.put(1, Assets.getTexture(Assets.BACKGROUND_ACANTILADO_PNG_PATH));
-        textures.put(2, Assets.getTexture(Assets.BACKGROUND_ARBOL_PNG_PATH));
-        textures.put(3, Assets.getTexture(Assets.BACKGROUND_CASCADA_PNG_PATH));
-        textures.put(4, Assets.getTexture(Assets.BACKGROUND_CUEVA_PNG_PATH));
-        textures.put(5, Assets.getTexture(Assets.BACKGROUND_ECLIPSE_PNG_PATH));
-        textures.put(6, Assets.getTexture(Assets.BACKGROUND_LUCHA_PNG_PATH));
-        textures.put(7, Assets.getTexture(Assets.BACKGROUND_PANTANO_PNG_PATH));
-        textures.put(8, Assets.getTexture(Assets.BACKGROUND_RAMA_PNG_PATH));
-        textures.put(9, Assets.getTexture(Assets.BACKGROUND_RUINAS_PNG_PATH));
+        textures.put(1, Assets.getInstance().getTexture(Assets.BACKGROUND_ACANTILADO_PNG_PATH));
+        textures.put(2, Assets.getInstance().getTexture(Assets.BACKGROUND_ARBOL_PNG_PATH));
+        textures.put(3, Assets.getInstance().getTexture(Assets.BACKGROUND_CASCADA_PNG_PATH));
+        textures.put(4, Assets.getInstance().getTexture(Assets.BACKGROUND_CUEVA_PNG_PATH));
+        textures.put(5, Assets.getInstance().getTexture(Assets.BACKGROUND_ECLIPSE_PNG_PATH));
+        textures.put(6, Assets.getInstance().getTexture(Assets.BACKGROUND_LUCHA_PNG_PATH));
+        textures.put(7, Assets.getInstance().getTexture(Assets.BACKGROUND_PANTANO_PNG_PATH));
+        textures.put(8, Assets.getInstance().getTexture(Assets.BACKGROUND_RAMA_PNG_PATH));
+        textures.put(9, Assets.getInstance().getTexture(Assets.BACKGROUND_RUINAS_PNG_PATH));
     }
 }
