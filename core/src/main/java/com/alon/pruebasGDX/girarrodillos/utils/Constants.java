@@ -11,6 +11,7 @@ public class Constants {
     public static int VIDA_INICIAL = 10;
     public static int VIDA_MINIMA = 0;
     public static int TURNOS_MAXIMO = 3;
+    public static final int WHEELS_PER_PLAYER = 5;
     public static final int EXP_NECESARIA_EVOLUCION = 6;
     public static final int MAXIMA_ALTURA_BASTION = 5;
     public static WheelSymbol[] WHEEL_SYMBOLS = {
